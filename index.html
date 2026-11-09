@@ -2,7 +2,7 @@
 <html lang="vi" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>JyabinAI (Vibe-coding - Đề 5) — Đánh Giá & Kiểm Toán Hiệu Suất Marketing Website</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,21 +36,21 @@
   </script>
   <link rel="stylesheet" href="./style.css" />
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col pb-20">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
   <!-- ===================================================================== -->
   <!-- VÙNG GIAO DIỆN CHÍNH (.no-print SẼ ẨN KHI XUẤT BÁO CÁO PDF A4)        -->
   <!-- ===================================================================== -->
   <div class="no-print flex-1 flex flex-col">
 
-    <!-- HEADER NAVIGATION -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
-        <!-- Brand Logo JyabinAI (Click cuộn mượt về đầu trang) -->
-        <button id="btnBrandScrollTop" type="button" class="flex items-center gap-3 min-w-0 text-left group focus:outline-none" title="Cuộn về đầu trang">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-emerald-500 p-0.5 shadow-md shadow-indigo-500/20 shrink-0 group-hover:scale-105 transition">
+    <!-- HEADER NAVIGATION (TỐI ƯU MOBILE 2 HÀNG GỌN GÀNG, KHÔNG CHỒNG LẤN) -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm h-auto py-2.5 px-3 sm:px-6">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+        <!-- Cụm Thương hiệu -->
+        <button id="btnBrandScrollTop" type="button" class="flex items-center gap-2.5 min-w-0 text-left group focus:outline-none" title="Cuộn về đầu trang">
+          <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-emerald-500 p-0.5 shadow-md shadow-indigo-500/20 shrink-0 group-hover:scale-105 transition">
             <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-              <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="jyabinGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stop-color="#4f46e5" />
@@ -67,50 +67,49 @@
               </svg>
             </div>
           </div>
-          <div class="min-w-0">
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-indigo-700 via-purple-700 to-emerald-600 bg-clip-text text-transparent">
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-indigo-700 via-purple-700 to-emerald-600 bg-clip-text text-transparent shrink-0">
                 JyabinAI
               </span>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-200/80">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-200/80 whitespace-nowrap shrink-0">
                 Vibe-coding - Đề 5
               </span>
             </div>
-            <p class="text-xs text-slate-500 hidden sm:block">
+            <p class="text-xs text-slate-500 hidden md:block truncate">
               Đánh giá &amp; Kiểm toán Hiệu suất Marketing Website Đa Kênh
             </p>
           </div>
         </button>
 
-        <!-- Header Actions -->
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <button id="btnOpenRubricModal" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200/70 transition">
-            <i data-lucide="award" class="w-4 h-4 text-indigo-600"></i>
+        <!-- Cụm Nút điều hướng (Chia đều 3 nút gọn trên Mobile, đầy đủ trên Desktop, không lặp icon) -->
+        <div class="grid grid-cols-3 sm:flex items-center gap-1.5 sm:gap-2.5 w-full sm:w-auto shrink-0">
+          <button id="btnOpenRubricModal" type="button" class="inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200/70 transition whitespace-nowrap">
+            <i data-lucide="award" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 shrink-0"></i>
             <span class="hidden md:inline">Tiêu chí chấm điểm</span>
             <span class="md:hidden">Tiêu chí</span>
           </button>
 
-          <button id="btnToggleHistoryDrawer" type="button" class="relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
-            <i data-lucide="history" class="w-4 h-4 text-slate-600"></i>
-            <span class="hidden sm:inline">Lịch sử</span>
-            <span id="historyCountBadge" class="px-1.5 py-0.2 rounded-full text-[11px] font-extrabold bg-indigo-600 text-white">0</span>
+          <button id="btnToggleHistoryDrawer" type="button" class="inline-flex items-center justify-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition whitespace-nowrap">
+            <i data-lucide="history" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-600 shrink-0"></i>
+            <span>Lịch sử</span>
+            <span id="historyCountBadge" class="px-1.5 py-0.2 rounded-full text-[10px] sm:text-[11px] font-extrabold bg-indigo-600 text-white">0</span>
           </button>
 
-          <!-- Nút Tính Năng Mới: ⚡ Cẩm nang Chuẩn Marketing SME -->
           <button
             id="btnOpenSmeGuideModal"
             type="button"
             title="Xem Quy trình 03 Bước Tự Tối Ưu Website & Mẫu Quảng Cáo cho Doanh nghiệp SME"
-            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-extrabold border transition shadow-sm bg-gradient-to-r from-indigo-50 via-purple-50 to-emerald-50 border-indigo-300 text-indigo-900 hover:border-indigo-500 hover:shadow-md"
+            class="inline-flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-2 rounded-xl sm:rounded-full text-xs sm:text-sm font-extrabold border transition shadow-sm bg-gradient-to-r from-indigo-50 via-purple-50 to-emerald-50 border-indigo-300 text-indigo-900 hover:border-indigo-500 whitespace-nowrap"
           >
-            <i data-lucide="zap" class="w-4 h-4 text-amber-500 fill-amber-400"></i>
-            <span>⚡ Cẩm nang Chuẩn Marketing SME</span>
+            <span class="sm:hidden">⚡ Cẩm nang SME</span>
+            <span class="hidden sm:inline">⚡ Cẩm nang Chuẩn Marketing SME</span>
           </button>
         </div>
       </div>
     </header>
 
-    <!-- FLOATING RIGHT STEPPER (CĂN SÁT MÉP right-2) -->
+    <!-- FLOATING RIGHT STEPPER (CHỈ HIỆN TRÊN MÀN HÌNH LỚN xl) -->
     <aside id="floatingSceneNav" class="hidden xl:flex fixed right-2 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-2 p-1.5 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-lg">
       <div id="scrollPercentBadge" class="text-[10px] font-mono font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded-md border border-indigo-200">
         0%
@@ -138,42 +137,45 @@
       </button>
     </aside>
 
-    <!-- MAIN CONTAINER -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 xl:pr-14 py-6 sm:py-8 space-y-7">
+    <!-- MAIN CONTAINER (pb-40 TRÊN MOBILE ĐỂ THANH ĐÁY & NÚT CHAT KHÔNG CHE NỘI DUNG) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 xl:pr-14 pt-5 pb-40 sm:pb-28 space-y-6 sm:space-y-7">
 
       <!-- ================================================================= -->
       <!-- MỤC BÁO CÁO 01: CÔNG CỤ KIỂM TRA & NHẬP LIỆU                      -->
       <!-- ================================================================= -->
-      <section id="scene-01" class="bento-card tech-grid-hero rounded-2xl p-5 sm:p-7 relative overflow-hidden scroll-mt-20">
+      <section id="scene-01" class="bento-card tech-grid-hero rounded-2xl p-4 sm:p-7 relative overflow-hidden scroll-mt-24">
         <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-500"></div>
 
-        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-5 border-b border-slate-200/80">
-          <div>
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-white/90 text-indigo-700 border border-indigo-200 shadow-sm mb-2.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-              <span>HẠNG MỤC 01 • CÔNG CỤ KIỂM TOÁN WEBSITE DOANH NGHIỆP SME</span>
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 sm:pb-5 border-b border-slate-200/80">
+          <div class="min-w-0">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-white/90 text-indigo-700 border border-indigo-200 shadow-sm mb-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping shrink-0"></span>
+              <span class="truncate">HẠNG MỤC 01 • KIỂM TOÁN WEBSITE SME</span>
             </div>
-            <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
               Đánh giá &amp; Kiểm toán Hiệu suất Marketing Website
             </h1>
-            <p class="text-sm text-slate-600 mt-1">
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
               Chấm điểm <strong>04 trụ cột cốt lõi (/100đ)</strong>: Tìm kiếm Google (35đ) • Thu hút Mạng xã hội (25đ) • Trải nghiệm Di động (20đ) • Chuyển đổi Khách hàng (20đ).
             </p>
           </div>
 
-          <!-- 3 Input Mode Tabs -->
-          <div class="inline-flex p-1.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/90 shadow-sm self-start lg:self-auto" role="tablist">
-            <button type="button" data-tab="url" class="input-tab-btn active-tab flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-indigo-600 text-white shadow-sm">
-              <i data-lucide="globe" class="w-4 h-4"></i>
-              <span>Nhập địa chỉ Web</span>
+          <!-- 3 Input Mode Tabs (grid-cols-3 gọn trên Mobile để không gãy dòng) -->
+          <div class="grid grid-cols-3 lg:inline-flex gap-1 p-1 rounded-xl bg-white/95 backdrop-blur-sm border border-slate-200/90 shadow-sm w-full lg:w-auto shrink-0" role="tablist">
+            <button type="button" data-tab="url" class="input-tab-btn active-tab flex items-center justify-center gap-1.5 px-2 sm:px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-indigo-600 text-white shadow-sm whitespace-nowrap">
+              <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"></i>
+              <span class="sm:hidden">Nhập URL</span>
+              <span class="hidden sm:inline">Nhập địa chỉ Web</span>
             </button>
-            <button type="button" data-tab="html" class="input-tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900">
-              <i data-lucide="code-2" class="w-4 h-4"></i>
-              <span>Dán mã nguồn HTML</span>
+            <button type="button" data-tab="html" class="input-tab-btn flex items-center justify-center gap-1.5 px-2 sm:px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900 whitespace-nowrap">
+              <i data-lucide="code-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"></i>
+              <span class="sm:hidden">Dán HTML</span>
+              <span class="hidden sm:inline">Dán mã nguồn HTML</span>
             </button>
-            <button type="button" data-tab="sample" class="input-tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900">
-              <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
-              <span>Website SME mẫu</span>
+            <button type="button" data-tab="sample" class="input-tab-btn flex items-center justify-center gap-1.5 px-2 sm:px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900 whitespace-nowrap">
+              <i data-lucide="zap" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0"></i>
+              <span class="sm:hidden">Web mẫu</span>
+              <span class="hidden sm:inline">Website SME mẫu</span>
             </button>
           </div>
         </div>
@@ -184,10 +186,10 @@
             <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
             <div class="flex-1 min-w-0">
               <h4 id="inputAlertTitle" class="font-bold text-rose-900">Không thể xử lý dữ liệu đầu vào</h4>
-              <p id="inputAlertMessage" class="mt-0.5 text-rose-700 leading-relaxed break-words [overflow-wrap:anywhere]"></p>
+              <p id="inputAlertMessage" class="mt-0.5 text-rose-700 leading-relaxed break-words"></p>
               <div id="inputAlertActions" class="hidden mt-3 flex flex-wrap gap-2">
                 <button type="button" id="btnSwitchToHtmlTab" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-700 text-white hover:bg-rose-800 transition">
-                  <i data-lucide="code-2" class="w-3.5 h-3.5"></i> Chuyển sang Dán mã HTML (Hướng dẫn 3 bước dễ làm)
+                  <i data-lucide="code-2" class="w-3.5 h-3.5"></i> Chuyển sang Dán mã HTML (3 bước dễ làm)
                 </button>
                 <button type="button" id="btnSwitchToSampleTab" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-rose-800 border border-rose-300 hover:bg-rose-100 transition">
                   <i data-lucide="zap" class="w-3.5 h-3.5"></i> Xem Website SME Mẫu
@@ -201,23 +203,23 @@
         </div>
 
         <!-- TAB 1: URL INPUT -->
-        <div id="tabPanel-url" class="input-tab-panel relative z-10 mt-5">
-          <form id="formUrlAudit" class="flex flex-col sm:flex-row gap-3" novalidate>
+        <div id="tabPanel-url" class="input-tab-panel relative z-10 mt-4 sm:mt-5">
+          <form id="formUrlAudit" class="flex flex-col sm:flex-row gap-2.5 sm:gap-3" novalidate>
             <div class="relative flex-1 min-w-0">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-indigo-500">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-indigo-500">
                 <i data-lucide="search" class="w-4 h-4"></i>
               </div>
               <input
                 id="inputWebsiteUrl"
                 type="text"
-                placeholder="Nhập địa chỉ Website cần kiểm toán (VD: https://bomcongnghiephn.com, ykhoakimyen.com)..."
-                class="w-full pl-11 pr-4 py-3.5 rounded-xl border-2 border-slate-200/90 bg-white/95 text-slate-900 text-sm font-medium focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition shadow-sm"
+                placeholder="Nhập địa chỉ Website (VD: https://bomcongnghiephn.com)..."
+                class="w-full pl-10 pr-4 py-3 sm:py-3.5 rounded-xl border-2 border-slate-200/90 bg-white/95 text-slate-900 text-base sm:text-sm font-medium focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition shadow-sm"
               />
             </div>
             <button
               id="btnSubmitUrl"
               type="submit"
-              class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm shadow-lg shadow-indigo-600/25 hover:-translate-y-0.5 transition cursor-pointer shrink-0"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm shadow-lg shadow-indigo-600/25 transition cursor-pointer shrink-0"
             >
               <i data-lucide="sparkles" class="w-4 h-4"></i>
               <span>Phân tích Website</span>
@@ -228,13 +230,12 @@
               <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
               <span>Kết nối 04 tầng tự động vượt tường lửa &amp; đồng bộ điểm số chuẩn xác với mã nguồn HTML.</span>
             </span>
-            <span>Mẹo: Có thể dán mã HTML ở Tab 2 nếu muốn kiểm toán trang nội bộ.</span>
           </div>
         </div>
 
         <!-- TAB 2: DIRECT HTML PASTE -->
-        <div id="tabPanel-html" class="input-tab-panel relative z-10 hidden mt-5 space-y-4">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 rounded-xl bg-white/90 border border-indigo-200/80 shadow-sm">
+        <div id="tabPanel-html" class="input-tab-panel relative z-10 hidden mt-4 sm:mt-5 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 p-3.5 rounded-xl bg-white/90 border border-indigo-200/80 shadow-sm">
             <div class="flex items-start gap-2.5">
               <span class="w-6 h-6 rounded-full bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
               <div class="text-xs">
@@ -265,25 +266,25 @@
             <input
               id="inputHtmlContextUrl"
               type="text"
-              placeholder="Tên miền hiển thị (Tùy chọn, tự nhận diện qua canonical/og:url)"
-              class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-xs w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Tên miền hiển thị (Tùy chọn, tự nhận diện)"
+              class="px-3 py-2 rounded-lg border border-slate-300 bg-white text-base sm:text-xs w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <textarea
             id="inputRawHtml"
             rows="6"
             placeholder="<!DOCTYPE html>&#10;<html lang=&quot;vi&quot;>&#10;<head>&#10;  <title>Tiêu đề trang web...</title>&#10;..."
-            class="w-full p-3.5 rounded-xl border border-slate-300 font-mono text-xs text-slate-800 bg-white/95 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            class="w-full p-3.5 rounded-xl border border-slate-300 font-mono text-base sm:text-xs text-slate-800 bg-white/95 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           ></textarea>
-          <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <span class="text-xs text-slate-600 flex items-center gap-1.5">
               <i data-lucide="cpu" class="w-4 h-4 text-indigo-600 shrink-0"></i>
-              Trích xuất ngữ cảnh 4.000 – 6.000 Tokens (Menu, Tiêu đề, Nội dung dịch vụ, CTA) cho JyabinAI phân tích sâu.
+              Trích xuất ngữ cảnh 4.000 – 6.000 Tokens cho JyabinAI phân tích sâu.
             </span>
             <button
               id="btnSubmitHtml"
               type="button"
-              class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm shadow-md shadow-indigo-600/20 transition"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm shadow-md shadow-indigo-600/20 transition"
             >
               <i data-lucide="check-circle" class="w-4 h-4"></i>
               <span>Chấm điểm mã HTML</span>
@@ -292,22 +293,22 @@
         </div>
 
         <!-- TAB 3: 03 MẪU WEBSITE DOANH NGHIỆP NHỎ (SME) THỰC TẾ -->
-        <div id="tabPanel-sample" class="input-tab-panel relative z-10 hidden mt-5">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Mẫu 1: https://bomcongnghiephn.com/ (~78/100đ) -->
-            <div class="p-4 rounded-xl border-2 border-amber-200 bg-white/95 hover:shadow-lg hover:-translate-y-0.5 transition flex flex-col justify-between">
+        <div id="tabPanel-sample" class="input-tab-panel relative z-10 hidden mt-4 sm:mt-5">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+            <!-- Mẫu 1 -->
+            <div class="p-4 rounded-xl border-2 border-amber-200 bg-white/95 hover:shadow-lg transition flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-500 text-white">Mẫu 1 • SME Điển Hình</span>
                   <span class="font-mono font-extrabold text-amber-700 text-sm">78/100đ</span>
                 </div>
                 <h3 class="font-bold text-slate-900 text-sm">Máy Bơm Công Nghiệp Hà Nội</h3>
-                <a href="https://bomcongnghiephn.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 hover:underline mb-1.5">
+                <a href="https://bomcongnghiephn.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 hover:underline mb-1.5 break-all">
                   <span>https://bomcongnghiephn.com/</span>
-                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                  <i data-lucide="external-link" class="w-3 h-3 shrink-0"></i>
                 </a>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  <strong>Web SME làm xong bỏ đó:</strong> Có giao diện cơ bản và SĐT liên hệ, nhưng tiêu đề chỉ để <em>"Trang chủ"</em>, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> quan trọng cho SEO và chưa khai báo ảnh <code class="font-mono">og:image</code>.
+                  <strong>Web SME làm xong bỏ đó:</strong> Có giao diện cơ bản và SĐT liên hệ, nhưng tiêu đề chỉ để <em>"Trang chủ"</em>, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> và chưa khai báo ảnh <code class="font-mono">og:image</code>.
                 </p>
               </div>
               <button
@@ -320,17 +321,17 @@
               </button>
             </div>
 
-            <!-- Mẫu 2: https://www.ykhoakimyen.com (~90/100đ) -->
-            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-white/95 hover:shadow-lg hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <!-- Mẫu 2 -->
+            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-white/95 hover:shadow-lg transition flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-600 text-white">Mẫu 2 • SME Chuẩn Marketing</span>
                   <span class="font-mono font-extrabold text-emerald-700 text-sm">90/100đ</span>
                 </div>
                 <h3 class="font-bold text-slate-900 text-sm">Dụng Cụ Y Khoa Kim Yến</h3>
-                <a href="https://www.ykhoakimyen.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-700 hover:underline mb-1.5">
+                <a href="https://www.ykhoakimyen.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-700 hover:underline mb-1.5 break-all">
                   <span>https://www.ykhoakimyen.com</span>
-                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                  <i data-lucide="external-link" class="w-3 h-3 shrink-0"></i>
                 </a>
                 <p class="text-xs text-slate-600 leading-relaxed">
                   <strong>Web SME tối ưu tốt 4 trụ cột:</strong> Tiêu đề &amp; mô tả chuẩn SEO, có ảnh đại diện chia sẻ Zalo/Facebook, tương thích di động và tích hợp Hotline/Form đặt hàng rõ ràng.
@@ -346,17 +347,17 @@
               </button>
             </div>
 
-            <!-- Mẫu 3: https://maybomviet.com/ (~52/100đ) -->
-            <div class="p-4 rounded-xl border-2 border-rose-200 bg-white/95 hover:shadow-lg hover:-translate-y-0.5 transition flex flex-col justify-between">
+            <!-- Mẫu 3 -->
+            <div class="p-4 rounded-xl border-2 border-rose-200 bg-white/95 hover:shadow-lg transition flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-rose-600 text-white">Mẫu 3 • SME Thiếu Chăm Sóc</span>
                   <span class="font-mono font-extrabold text-rose-700 text-sm">52/100đ</span>
                 </div>
                 <h3 class="font-bold text-slate-900 text-sm">Thương Hiệu Máy Bơm Việt</h3>
-                <a href="https://maybomviet.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 hover:underline mb-1.5">
+                <a href="https://maybomviet.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 hover:underline mb-1.5 break-all">
                   <span>https://maybomviet.com/</span>
-                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                  <i data-lucide="external-link" class="w-3 h-3 shrink-0"></i>
                 </a>
                 <p class="text-xs text-slate-600 leading-relaxed">
                   <strong>Web SME làm từ lâu thiếu chăm sóc:</strong> Thiếu thẻ <code class="font-mono">viewport</code> gây khó đọc trên điện thoại, tiêu đề sơ sài, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> và chưa cài đặt Open Graph.
@@ -375,12 +376,12 @@
         </div>
 
         <!-- Thanh dẫn hướng 5 Hạng mục Báo cáo Kiểm toán Marketing -->
-        <div class="relative z-10 mt-6 pt-4 border-t border-indigo-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <div class="flex items-center gap-2 text-slate-600 font-medium">
-            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+        <div class="relative z-10 mt-5 pt-4 border-t border-indigo-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-slate-600 font-medium text-center sm:text-left">
+            <span class="w-2 h-2 rounded-full bg-indigo-600 shrink-0 hidden sm:inline-block"></span>
             <span>Cuộn chuột xuống để xem chi tiết <strong>5 Hạng mục Báo cáo Kiểm toán Marketing</strong></span>
           </div>
-          <a href="#scene-02" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold border border-indigo-200 transition">
+          <a href="#scene-02" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold border border-indigo-200 transition whitespace-nowrap">
             <span>Xem kết quả kiểm toán</span>
             <i data-lucide="arrow-down" class="w-3.5 h-3.5 animate-bounce"></i>
           </a>
@@ -388,7 +389,7 @@
       </section>
 
       <!-- INTERACTIVE 4-STEP SCANNER LOADER -->
-      <section id="loadingSection" class="hidden bento-card rounded-2xl p-8 max-w-3xl mx-auto">
+      <section id="loadingSection" class="hidden bento-card rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto">
         <div class="flex items-center gap-4 pb-5 border-b border-slate-200">
           <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
             <i data-lucide="loader-2" class="w-7 h-7 animate-spin"></i>
@@ -419,10 +420,10 @@
       </section>
 
       <!-- DASHBOARD RESULTS CONTAINER -->
-      <div id="dashboardContainer" class="space-y-7">
+      <div id="dashboardContainer" class="space-y-6 sm:space-y-7">
 
-        <!-- TOP BAR: TARGET INFO & EXPORT BUTTONS -->
-        <div class="bento-card rounded-2xl p-4 sm:px-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-l-4 border-l-indigo-600">
+        <!-- TOP BAR: TARGET INFO & 4 EXPORT BUTTONS (GRID 2X2 TRÊN MOBILE) -->
+        <div class="bento-card rounded-2xl p-4 sm:px-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3.5 border-l-4 border-l-indigo-600">
           <div class="space-y-1 min-w-0 flex-1">
             <div class="flex flex-wrap items-center gap-2 min-w-0">
               <span id="auditSourceBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 shrink-0">
@@ -442,7 +443,7 @@
                 <i data-lucide="external-link" class="w-3 h-3"></i>
               </a>
             </div>
-            <p class="text-xs text-slate-500 flex flex-wrap items-center gap-3">
+            <p class="text-xs text-slate-500 flex flex-wrap items-center gap-x-3 gap-y-1">
               <span class="inline-flex items-center gap-1">
                 <i data-lucide="clock" class="w-3.5 h-3.5"></i>
                 <span id="auditedTimeDisplay">Vừa xong</span>
@@ -454,39 +455,38 @@
             </p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <!-- 4 nút hành động chia đều grid-cols-2 trên Mobile, flex trên Desktop -->
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 w-full lg:w-auto shrink-0">
             <button
               id="btnExportPdf"
               type="button"
-              class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-bold text-xs shadow-sm transition"
-              title="Xuất Báo cáo đồ họa chuẩn A4 (.PDF) không bị chặn popup"
+              class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-bold text-xs shadow-sm transition whitespace-nowrap"
             >
-              <i data-lucide="printer" class="w-4 h-4"></i>
-              <span>Xuất Báo Cáo (.PDF)</span>
+              <i data-lucide="printer" class="w-4 h-4 shrink-0"></i>
+              <span>Xuất .PDF</span>
             </button>
             <button
               id="btnDownloadDoc"
               type="button"
-              class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition"
-              title="Tải báo cáo định dạng Microsoft Word (.doc)"
+              class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition whitespace-nowrap"
             >
-              <i data-lucide="file-down" class="w-4 h-4"></i>
-              <span>Tải Báo Cáo (.DOC)</span>
+              <i data-lucide="file-down" class="w-4 h-4 shrink-0"></i>
+              <span>Tải .DOC</span>
             </button>
             <button
               id="btnViewRawReportModal"
               type="button"
-              class="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition"
+              class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition whitespace-nowrap"
             >
-              <i data-lucide="eye" class="w-4 h-4 text-slate-600"></i>
-              <span class="hidden sm:inline">Xem bản Text</span>
+              <i data-lucide="eye" class="w-4 h-4 text-slate-600 shrink-0"></i>
+              <span>Xem bản Text</span>
             </button>
             <button
               id="btnCopyReport"
               type="button"
-              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition"
+              class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition whitespace-nowrap"
             >
-              <i data-lucide="copy" class="w-4 h-4"></i>
+              <i data-lucide="copy" class="w-4 h-4 shrink-0"></i>
               <span>Copy Báo Cáo</span>
             </button>
           </div>
@@ -495,10 +495,10 @@
         <!-- =============================================================== -->
         <!-- MỤC BÁO CÁO 02: ĐIỂM CHUẨN & TƯ VẤN CHIẾN LƯỢC AI               -->
         <!-- =============================================================== -->
-        <section id="scene-02" class="grid grid-cols-1 lg:grid-cols-12 gap-6 scroll-mt-20">
+        <section id="scene-02" class="grid grid-cols-1 lg:grid-cols-12 gap-6 scroll-mt-24">
 
           <!-- CỘT TRÁI (5 COLS) -->
-          <div class="lg:col-span-5 bento-card rounded-2xl p-6 flex flex-col justify-between min-w-0 space-y-5">
+          <div class="lg:col-span-5 bento-card rounded-2xl p-4 sm:p-6 flex flex-col justify-between min-w-0 space-y-5">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
                 <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
@@ -512,7 +512,7 @@
 
               <!-- Vòng tròn điểm số Count-Up -->
               <div class="flex flex-col items-center justify-center">
-                <div class="relative w-44 h-44 flex items-center justify-center">
+                <div class="relative w-40 h-40 sm:w-44 sm:h-44 flex items-center justify-center">
                   <svg class="w-full h-full" viewBox="0 0 160 160">
                     <circle cx="80" cy="80" r="66" fill="none" stroke="#e2e8f0" stroke-width="14"></circle>
                     <circle
@@ -536,7 +536,7 @@
                 </div>
 
                 <!-- Huy hiệu So sánh điểm lịch sử -->
-                <div id="historyDeltaBadge" class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                <div id="historyDeltaBadge" class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 text-center">
                   <span>● Lần kiểm toán đầu tiên của tên miền này</span>
                 </div>
 
@@ -547,30 +547,30 @@
                 </div>
               </div>
 
-              <!-- 3 Ô Thống kê ngang -->
-              <div class="grid grid-cols-3 gap-2.5 mt-4">
-                <div class="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-center">
-                  <div id="kpiBoxPass" class="text-lg font-extrabold text-emerald-700">0</div>
-                  <div class="text-[11px] font-bold text-emerald-800">✔ Đạt chuẩn</div>
+              <!-- 3 Ô Thống kê ngang (Cao bằng nhau, chữ nằm gọn trên 1 dòng trên Mobile) -->
+              <div class="grid grid-cols-3 gap-2 mt-4">
+                <div class="p-2 rounded-xl bg-emerald-50/80 border border-emerald-200 text-center flex flex-col justify-center">
+                  <div id="kpiBoxPass" class="text-base sm:text-lg font-extrabold text-emerald-700">0</div>
+                  <div class="text-[10px] sm:text-[11px] font-bold text-emerald-800 whitespace-nowrap">✔ Đạt chuẩn</div>
                 </div>
-                <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200 text-center">
-                  <div id="kpiBoxWarn" class="text-lg font-extrabold text-amber-700">0</div>
-                  <div class="text-[11px] font-bold text-amber-800">◐ Khá / Cảnh báo</div>
+                <div class="p-2 rounded-xl bg-amber-50/80 border border-amber-200 text-center flex flex-col justify-center">
+                  <div id="kpiBoxWarn" class="text-base sm:text-lg font-extrabold text-amber-700">0</div>
+                  <div class="text-[10px] sm:text-[11px] font-bold text-amber-800 whitespace-nowrap">◐ Khá/C.Báo</div>
                 </div>
-                <div class="p-2.5 rounded-xl bg-rose-50/80 border border-rose-200 text-center">
-                  <div id="kpiBoxFail" class="text-lg font-extrabold text-rose-700">0</div>
-                  <div class="text-[11px] font-bold text-rose-800">✖ Chưa đạt</div>
+                <div class="p-2 rounded-xl bg-rose-50/80 border border-rose-200 text-center flex flex-col justify-center">
+                  <div id="kpiBoxFail" class="text-base sm:text-lg font-extrabold text-rose-700">0</div>
+                  <div class="text-[10px] sm:text-[11px] font-bold text-rose-800 whitespace-nowrap">✖ Chưa đạt</div>
                 </div>
               </div>
 
               <!-- Khung Chẩn đoán Sẵn sàng Chạy Quảng cáo -->
-              <div class="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2">
+              <div class="mt-4 p-3 sm:p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2">
                 <div class="flex items-center justify-between text-xs font-extrabold text-slate-800">
                   <span class="flex items-center gap-1.5">
-                    <i data-lucide="megaphone" class="w-4 h-4 text-indigo-600"></i>
+                    <i data-lucide="megaphone" class="w-4 h-4 text-indigo-600 shrink-0"></i>
                     <span>Chẩn đoán Sẵn sàng Chạy Quảng cáo</span>
                   </span>
-                  <span class="text-[10px] font-mono uppercase text-slate-500">Ad-Readiness</span>
+                  <span class="text-[10px] font-mono uppercase text-slate-500 hidden sm:inline">Ad-Readiness</span>
                 </div>
                 <div id="adReadinessContainer" class="grid grid-cols-1 gap-1.5 text-xs"></div>
               </div>
@@ -580,34 +580,35 @@
             <div id="pillarsProgressContainer" class="pt-4 border-t border-slate-200 space-y-3"></div>
           </div>
 
-          <!-- CỘT PHẢI (7 COLS): TRỢ LÝ AI NHẬN XÉT & TƯ VẤN TĂNG TRƯỞNG -->
-          <div class="lg:col-span-7 bento-card gradient-border-glow rounded-2xl p-6 flex flex-col justify-between min-w-0">
+          <!-- CỘT PHẢI (7 COLS): TRỢ LÝ AI NHẬN XÉT & TƯ VẤN TĂNG TRƯỞNG (SỬA TRIỆT ĐỂ LỖI ÉP DỌC TRÊN MOBILE) -->
+          <div class="lg:col-span-7 bento-card gradient-border-glow rounded-2xl p-4 sm:p-6 flex flex-col justify-between min-w-0">
             <div class="min-w-0">
-              <div class="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-slate-200">
-                <div class="flex items-start gap-3 min-w-0 flex-1">
+              <!-- Header Khung AI: flex-col trên Mobile (w-full 100%), sm:flex-row trên Desktop -->
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 pb-4 border-b border-slate-200">
+                <div class="flex items-start gap-3 w-full sm:w-auto min-w-0 flex-1">
                   <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-sm mt-0.5">
                     <i data-lucide="bot" class="w-5 h-5"></i>
                   </div>
                   <div class="min-w-0 flex-1">
-                    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg leading-snug break-words">
+                    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg leading-snug">
                       Trợ Lý AI Phân Tích &amp; Tư Vấn Tăng Trưởng
                     </h3>
-                    <p class="text-xs sm:text-sm text-slate-500 leading-relaxed break-words mt-0.5">
+                    <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mt-0.5">
                       Đánh giá chuyên sâu theo góc nhìn Kinh doanh, Quảng cáo &amp; Tỷ lệ chốt đơn
                     </p>
                   </div>
                 </div>
 
-                <!-- Nhãn chế độ AI (Tự động đổi theo isMock === false / true) -->
-                <div id="aiModeBadgeContainer" class="shrink-0">
-                  <span id="aiModeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                <!-- Nhãn chế độ AI nằm gọn hàng dưới trên Mobile (self-start) -->
+                <div id="aiModeBadgeContainer" class="self-start sm:self-center shrink-0">
+                  <span id="aiModeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
                     <span id="aiModeBadgeText">✨ Phân tích chuyên sâu bởi JyabinAI</span>
                   </span>
                 </div>
               </div>
 
-              <div id="aiErrorNotice" class="hidden mt-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 break-words [overflow-wrap:anywhere]">
+              <div id="aiErrorNotice" class="hidden mt-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 break-words">
                 <span id="aiErrorNoticeText"></span>
               </div>
 
@@ -621,27 +622,27 @@
 
               <!-- Grid 2 cột Nhận xét AI -->
               <div id="aiContentGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 min-w-0">
-                <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 min-w-0 overflow-hidden">
+                <div class="p-3.5 sm:p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 min-w-0 overflow-hidden">
                   <div class="flex items-center gap-2 text-emerald-900 font-extrabold text-sm mb-3 min-w-0">
                     <i data-lucide="trending-up" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                    <span id="aiStrengthsHeading" class="break-words [overflow-wrap:anywhere]">03 Điểm sáng Marketing đã có nền tảng</span>
+                    <span id="aiStrengthsHeading">03 Điểm sáng Marketing đã có nền tảng</span>
                   </div>
                   <ul id="aiStrengthsList" class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed min-w-0"></ul>
                 </div>
 
-                <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200/80 min-w-0 overflow-hidden">
+                <div class="p-3.5 sm:p-4 rounded-xl bg-rose-50/70 border border-rose-200/80 min-w-0 overflow-hidden">
                   <div class="flex items-center gap-2 text-rose-900 font-extrabold text-sm mb-3 min-w-0">
                     <i data-lucide="wrench" class="w-4 h-4 text-rose-600 shrink-0"></i>
-                    <span id="aiImprovementsHeading" class="break-words [overflow-wrap:anywhere]">03 Hạng mục cần bổ sung để tăng khách</span>
+                    <span id="aiImprovementsHeading">03 Hạng mục cần bổ sung để tăng khách</span>
                   </div>
                   <ul id="aiImprovementsList" class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed min-w-0"></ul>
                 </div>
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-              <span id="aiFooterNote" class="min-w-0 break-words">Đã phân tích sâu ngữ cảnh trang chủ &amp; danh mục dịch vụ bởi JyabinAI.</span>
-              <div class="flex items-center gap-3 shrink-0">
+            <div class="mt-4 pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs text-slate-500">
+              <span id="aiFooterNote" class="min-w-0">Đã phân tích sâu ngữ cảnh trang chủ &amp; danh mục dịch vụ bởi JyabinAI.</span>
+              <div class="flex flex-wrap items-center gap-3 shrink-0">
                 <button
                   id="btnOpenSmeGuideFromCard"
                   type="button"
@@ -674,8 +675,8 @@
         <!-- =============================================================== -->
         <!-- MỤC BÁO CÁO 03: MÔ PHỎNG HIỂN THỊ GOOGLE & ZALO/FB               -->
         <!-- =============================================================== -->
-        <section id="scene-03" class="bento-card rounded-2xl p-6 scroll-mt-20">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-slate-200">
+        <section id="scene-03" class="bento-card rounded-2xl p-4 sm:p-6 scroll-mt-24">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 sm:pb-5 border-b border-slate-200">
             <div>
               <div class="flex items-center gap-2 flex-wrap">
                 <span class="px-2.5 py-0.5 rounded-md text-[11px] font-extrabold uppercase bg-gradient-to-r from-indigo-600 to-purple-600 text-white">Hạng mục 03 • Live Preview</span>
@@ -687,21 +688,21 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-5">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 mt-5">
             <!-- Google Search Preview -->
-            <div class="flex flex-col justify-between p-5 rounded-2xl bg-blue-50/40 border border-blue-200/80 min-w-0 overflow-hidden">
+            <div class="flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-blue-50/40 border border-blue-200/80 min-w-0 w-full overflow-hidden">
               <div class="min-w-0">
-                <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
                   <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-blue-800">
-                    <i data-lucide="search" class="w-4 h-4 text-blue-600"></i>
-                    Mô phỏng Kết quả Tìm kiếm Google
+                    <i data-lucide="search" class="w-4 h-4 text-blue-600 shrink-0"></i>
+                    <span>Kết quả Tìm kiếm Google</span>
                   </span>
                   <span id="serpStatusBadge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">
                     Chuẩn hiển thị
                   </span>
                 </div>
 
-                <div class="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-1.5 min-w-0 overflow-hidden">
+                <div class="p-3.5 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-1.5 min-w-0 overflow-hidden">
                   <div class="flex items-center gap-2.5 min-w-0">
                     <div class="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0">
                       <img id="serpFaviconImg" src="" alt="Favicon" referrerpolicy="no-referrer" class="w-4 h-4 object-contain hidden" />
@@ -713,11 +714,11 @@
                     </div>
                   </div>
 
-                  <h4 id="serpTitle" class="text-lg sm:text-[19px] font-medium text-[#1a0dab] hover:underline cursor-pointer leading-snug pt-1 break-words [overflow-wrap:anywhere]">
+                  <h4 id="serpTitle" class="text-base sm:text-[19px] font-medium text-[#1a0dab] hover:underline cursor-pointer leading-snug pt-1 break-words">
                     Tiêu đề trang web trên Google
                   </h4>
 
-                  <p id="serpDescription" class="text-xs sm:text-[13px] text-[#4d5156] leading-relaxed break-words [overflow-wrap:anywhere]">
+                  <p id="serpDescription" class="text-xs sm:text-[13px] text-[#4d5156] leading-relaxed break-words">
                     Mô tả trang web trên Google...
                   </p>
                 </div>
@@ -730,30 +731,30 @@
             </div>
 
             <!-- Facebook / Zalo Share Card Preview -->
-            <div class="flex flex-col justify-between p-5 rounded-2xl bg-purple-50/40 border border-purple-200/80 min-w-0 overflow-hidden">
+            <div class="flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-purple-50/40 border border-purple-200/80 min-w-0 w-full overflow-hidden">
               <div class="min-w-0">
-                <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
                   <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-purple-900">
-                    <i data-lucide="share-2" class="w-4 h-4 text-purple-600"></i>
-                    Mô phỏng Thẻ Chia sẻ Facebook / Zalo
+                    <i data-lucide="share-2" class="w-4 h-4 text-purple-600 shrink-0"></i>
+                    <span>Thẻ Chia sẻ Facebook / Zalo</span>
                   </span>
                   <span id="socialStatusBadge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">
                     Đầy đủ Open Graph
                   </span>
                 </div>
 
-                <div class="rounded-xl overflow-hidden bg-white border border-slate-300 shadow-sm min-w-0">
-                  <div class="relative h-48 sm:h-52 w-full bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden">
+                <div class="rounded-xl overflow-hidden bg-white border border-slate-300 shadow-sm min-w-0 w-full">
+                  <div class="relative w-full aspect-[1.91/1] bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden">
                     <img id="socialPreviewImg" src="" alt="Social Preview" referrerpolicy="no-referrer" class="w-full h-full object-cover hidden" />
-                    <div id="socialMissingImageAlert" class="p-6 text-center max-w-md mx-auto">
-                      <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-2.5">
-                        <i data-lucide="image-off" class="w-6 h-6"></i>
+                    <div id="socialMissingImageAlert" class="p-4 sm:p-6 text-center max-w-md mx-auto">
+                      <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-2">
+                        <i data-lucide="image-off" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                       </div>
                       <p class="font-extrabold text-xs sm:text-sm text-rose-900">
                         CẢNH BÁO: Chưa cài đặt ảnh bìa chia sẻ (og:image)
                       </p>
-                      <p class="text-xs text-slate-600 mt-1">
-                        Khi gửi link qua Zalo hoặc đăng Facebook, bài viết bị mất khung ảnh đại diện lớn, làm giảm tới <strong>70% tỷ lệ khách hàng bấm vào xem</strong>!
+                      <p class="text-[11px] sm:text-xs text-slate-600 mt-1">
+                        Khi gửi link qua Zalo hoặc đăng Facebook, bài viết bị mất khung ảnh đại diện lớn, làm giảm tới <strong>70% tỷ lệ khách bấm xem</strong>!
                       </p>
                     </div>
                   </div>
@@ -762,10 +763,10 @@
                     <div id="socialDomain" class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 truncate">
                       BOMCONGNGHIEPHN.COM
                     </div>
-                    <h4 id="socialTitle" class="font-bold text-sm sm:text-base text-slate-900 line-clamp-1 break-words [overflow-wrap:anywhere]">
+                    <h4 id="socialTitle" class="font-bold text-sm sm:text-base text-slate-900 line-clamp-1 break-words">
                       Tiêu đề chia sẻ mạng xã hội
                     </h4>
-                    <p id="socialDescription" class="text-xs text-slate-600 line-clamp-2 break-words [overflow-wrap:anywhere]">
+                    <p id="socialDescription" class="text-xs text-slate-600 line-clamp-2 break-words">
                       Mô tả ngắn thu hút khách hàng trên mạng xã hội...
                     </p>
                   </div>
@@ -773,7 +774,7 @@
               </div>
 
               <div class="mt-3 pt-3 border-t border-purple-200/60 flex items-center justify-between text-xs text-slate-600">
-                <span>Hiển thị tự động từ cấu hình Open Graph (<code class="font-mono">og:title</code>, <code class="font-mono">og:description</code>, <code class="font-mono">og:image</code>)</span>
+                <span>Tự động trích xuất từ bộ thẻ Open Graph (<code class="font-mono">og:title</code>, <code class="font-mono">og:image</code>)</span>
               </div>
             </div>
           </div>
@@ -782,16 +783,16 @@
         <!-- =============================================================== -->
         <!-- MỤC BÁO CÁO 04: MÃ HTML TỐI ƯU & 12 TIÊU CHÍ CHI TIẾT            -->
         <!-- =============================================================== -->
-        <section id="scene-04" class="bento-card rounded-2xl p-6 space-y-6 scroll-mt-20">
-          <!-- Hộp Tạo Mã HTML <head> Vá Lỗi Tự Động (Copy 1-Click) -->
-          <div id="autoFixHeadPatchWrapper" class="p-5 rounded-2xl bg-gradient-to-r from-indigo-950 via-slate-900 to-purple-950 text-white shadow-lg border border-indigo-500/30">
+        <section id="scene-04" class="bento-card rounded-2xl p-4 sm:p-6 space-y-6 scroll-mt-24">
+          <!-- Hộp Tạo Mã HTML <head> Vá Lỗi Tự Động -->
+          <div id="autoFixHeadPatchWrapper" class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-950 via-slate-900 to-purple-950 text-white shadow-lg border border-indigo-500/30 min-w-0 overflow-hidden">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
-              <div class="space-y-0.5">
+              <div class="space-y-0.5 min-w-0">
                 <div class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-amber-400">
-                  <i data-lucide="wand-2" class="w-4 h-4"></i>
+                  <i data-lucide="wand-2" class="w-4 h-4 shrink-0"></i>
                   <span>Hạng mục 04 • Giải Pháp Kỹ Thuật 1-Click</span>
                 </div>
-                <h3 class="text-base sm:text-lg font-extrabold text-white">
+                <h3 class="text-sm sm:text-lg font-extrabold text-white leading-snug">
                   ⚡ Cụm Mã HTML &lt;head&gt; Vá Lỗi Tự Động (Đã Tối Ưu Cho Website Này)
                 </h3>
                 <p class="text-xs text-indigo-200">
@@ -801,50 +802,50 @@
               <button
                 id="btnCopyMasterHeadPatch"
                 type="button"
-                class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs shadow-md transition shrink-0"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs shadow-md transition shrink-0"
               >
                 <i data-lucide="copy-check" class="w-4 h-4"></i>
                 <span>Copy cụm mã &lt;head&gt;</span>
               </button>
             </div>
-            <pre id="masterHeadPatchCode" class="mt-3 p-3.5 rounded-xl bg-black/40 border border-white/10 font-mono text-xs text-emerald-300 overflow-x-auto whitespace-pre-wrap break-words [overflow-wrap:anywhere]"></pre>
+            <pre id="masterHeadPatchCode" class="mt-3 p-3 sm:p-3.5 rounded-xl bg-black/40 border border-white/10 font-mono text-xs text-emerald-300 max-w-full overflow-x-auto whitespace-pre-wrap break-words"></pre>
           </div>
 
-          <!-- Header Checklist & Bộ lọc -->
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <!-- Header Checklist & Bộ lọc (grid-cols-2 trên Mobile) -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3.5 pb-4 border-b border-slate-200">
             <div>
               <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                <i data-lucide="list-checks" class="w-5 h-5 text-indigo-600"></i>
-                <span>Checklist Kiểm Toán Chi Tiết 12 Hạng Mục &amp; Phân Loại Ưu Tiên Kinh Doanh</span>
+                <i data-lucide="list-checks" class="w-5 h-5 text-indigo-600 shrink-0"></i>
+                <span>Checklist Kiểm Toán Chi Tiết 12 Hạng Mục</span>
               </h3>
               <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Mỗi hạng mục chưa đạt đều đi kèm <strong>Nhãn ưu tiên kinh doanh</strong> và <strong>Mã mẫu gợi ý từ JyabinAI</strong> để sao chép dùng ngay.
+                Mỗi hạng mục chưa đạt đều đi kèm <strong>Nhãn ưu tiên kinh doanh</strong> và <strong>Mã mẫu gợi ý từ JyabinAI</strong>.
               </p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-auto">
-              <button type="button" data-filter="all" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-sm">
+            <div class="grid grid-cols-2 sm:flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-xl border border-slate-200 w-full md:w-auto">
+              <button type="button" data-filter="all" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-sm text-center">
                 Tất cả (<span id="countFilterAll">12</span>)
               </button>
-              <button type="button" data-filter="pass" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-emerald-700 hover:bg-white/60">
+              <button type="button" data-filter="pass" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-emerald-700 hover:bg-white/60 text-center">
                 Đạt chuẩn (<span id="countFilterPass">0</span>)
               </button>
-              <button type="button" data-filter="warn" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-amber-700 hover:bg-white/60">
+              <button type="button" data-filter="warn" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-amber-700 hover:bg-white/60 text-center">
                 Khá / Cảnh báo (<span id="countFilterWarn">0</span>)
               </button>
-              <button type="button" data-filter="fail" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-rose-700 hover:bg-white/60">
+              <button type="button" data-filter="fail" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-rose-700 hover:bg-white/60 text-center">
                 Chưa đạt (<span id="countFilterFail">0</span>)
               </button>
             </div>
           </div>
 
-          <div id="checklistItemsContainer" class="space-y-6"></div>
+          <div id="checklistItemsContainer" class="space-y-6 min-w-0"></div>
         </section>
 
         <!-- =============================================================== -->
         <!-- MỤC BÁO CÁO 05: LỊCH SỬ KIỂM TRA WEBSITE                         -->
         <!-- =============================================================== -->
-        <section id="scene-05" class="bento-card rounded-2xl p-6 scroll-mt-20">
+        <section id="scene-05" class="bento-card rounded-2xl p-4 sm:p-6 scroll-mt-24">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
             <div>
               <div class="flex items-center gap-2">
@@ -872,26 +873,25 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="mt-12 border-t border-slate-200 bg-white py-6">
+    <footer class="mt-8 border-t border-slate-200 bg-white py-6 pb-32 sm:pb-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs sm:text-sm text-slate-600 font-medium">
         JyabinAI (Vibe-coding - Đề 5) — Nền tảng Đánh giá &amp; Kiểm toán Hiệu suất Marketing Website cho Doanh nghiệp SME • SEO On-page • Social Media • Mobile UX • Conversion
       </div>
     </footer>
 
-    <!-- FLOATING CHAT AI BUTTON -->
+    <!-- FLOATING CHAT AI BUTTON (NÂNG LÊN bottom-[112px] TRÊN MOBILE ĐỂ KHÔNG ĐÈ THANH ĐÁY, KHÔNG LẶP ICON) -->
     <button
       id="btnToggleAiChatWidget"
       type="button"
-      class="fixed bottom-20 right-5 z-40 inline-flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-extrabold text-xs sm:text-sm shadow-2xl shadow-indigo-600/40 border border-white/20 hover:scale-105 transition"
+      class="fixed bottom-[112px] right-3 sm:bottom-20 sm:right-6 z-40 inline-flex items-center gap-2 py-2.5 px-3.5 sm:px-4 sm:py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-extrabold text-xs sm:text-sm shadow-2xl shadow-indigo-600/40 border border-white/25 hover:scale-105 transition"
     >
-      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <i data-lucide="message-circle-question" class="w-4 h-4"></i>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
       <span>💬 Hỏi thêm JyabinAI về web này</span>
     </button>
 
-    <!-- CONTEXTUAL AI CHAT WIDGET WINDOW -->
-    <div id="aiChatWidgetWindow" class="fixed bottom-32 right-5 z-50 hidden w-[92vw] sm:w-[410px] bg-white rounded-2xl shadow-2xl border border-indigo-200 overflow-hidden flex-col">
-      <div class="p-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white flex items-center justify-between gap-2">
+    <!-- CONTEXTUAL AI CHAT WIDGET WINDOW (TỐI ƯU MOBILE w-[calc(100vw-1.5rem)] max-h-[78dvh]) -->
+    <div id="aiChatWidgetWindow" class="fixed bottom-[162px] sm:bottom-32 right-3 sm:right-6 z-50 hidden w-[calc(100vw-1.5rem)] sm:w-[420px] max-h-[76dvh] bg-white rounded-2xl shadow-2xl border border-indigo-200 overflow-hidden flex-col">
+      <div class="sticky top-0 z-10 p-3.5 sm:p-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white flex items-center justify-between gap-2 shrink-0">
         <div class="flex items-center gap-2.5 min-w-0">
           <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
             <i data-lucide="bot" class="w-4 h-4"></i>
@@ -901,101 +901,101 @@
             <p id="chatContextDomainLabel" class="text-[11px] text-indigo-100 truncate">Đang nạp ngữ cảnh website...</p>
           </div>
         </div>
-        <button id="btnCloseAiChatWidget" type="button" class="text-white/80 hover:text-white">
+        <button id="btnCloseAiChatWidget" type="button" class="p-1 rounded-lg bg-white/10 text-white hover:bg-white/20 shrink-0">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- 3 Nút câu hỏi gợi ý nhanh -->
-      <div class="p-2.5 bg-indigo-50/70 border-b border-indigo-100 flex flex-wrap gap-1.5">
-        <button type="button" data-quick-ask="Viết lại thẻ Title và Meta Description chuẩn SEO thu hút khách hàng nhất cho website này" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition">
-          ✨ Viết lại Title &amp; Meta Description hút khách
+      <div class="p-2.5 bg-indigo-50/70 border-b border-indigo-100 flex flex-wrap gap-1.5 shrink-0">
+        <button type="button" data-quick-ask="Viết lại thẻ Title và Meta Description chuẩn SEO thu hút khách hàng nhất cho website này" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition text-left">
+          ✨ Viết lại Title &amp; Meta Description
         </button>
-        <button type="button" data-quick-ask="Làm sao để tăng tỷ lệ khách hàng bấm gọi điện thoại và nhắn Zalo mua hàng trên website này?" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition">
-          📞 Làm sao tăng khách gọi điện/Zalo?
+        <button type="button" data-quick-ask="Làm sao để tăng tỷ lệ khách hàng bấm gọi điện thoại và nhắn Zalo mua hàng trên website này?" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition text-left">
+          📞 Làm sao tăng khách gọi/Zalo?
         </button>
-        <button type="button" data-quick-ask="Gợi ý 5 từ khóa chạy quảng cáo Google Ads và nội dung bài đăng Facebook hiệu quả cho ngành hàng của website này" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition">
-          🎯 Gợi ý 5 từ khóa chạy quảng cáo ngành này
+        <button type="button" data-quick-ask="Gợi ý 5 từ khóa chạy quảng cáo Google Ads và nội dung bài đăng Facebook hiệu quả cho ngành hàng của website này" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition text-left">
+          🎯 Gợi ý 5 từ khóa chạy Ads
         </button>
       </div>
 
-      <div id="aiChatMessagesList" class="p-3.5 h-72 overflow-y-auto space-y-3 text-xs bg-slate-50/60"></div>
+      <div id="aiChatMessagesList" class="p-3.5 flex-1 overflow-y-auto space-y-3 text-xs bg-slate-50/60 min-h-[180px]"></div>
 
-      <form id="formAiChat" class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+      <form id="formAiChat" class="p-2.5 sm:p-3 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0">
         <input
           id="inputAiChatQuestion"
           type="text"
           placeholder="Nhập câu hỏi cho JyabinAI..."
-          class="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          class="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-base sm:text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
-        <button type="submit" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition shrink-0">
+        <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition shrink-0">
           Gửi
         </button>
       </form>
     </div>
 
-    <!-- BOTTOM STICKY ACTION BAR -->
-    <div class="fixed bottom-0 inset-x-0 z-30 bg-slate-900/95 backdrop-blur-md border-t border-slate-700 text-white py-2.5 px-4 sm:px-6 shadow-2xl">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs">
-        <div class="flex items-center gap-2 min-w-0 truncate">
-          <span class="text-slate-400 hidden sm:inline">Website đang xem:</span>
-          <strong id="stickyBarDomain" class="font-mono text-indigo-300 truncate">https://bomcongnghiephn.com/</strong>
-          <span class="text-slate-500">•</span>
-          <span id="stickyBarScoreBadge" class="inline-flex items-center gap-1 font-extrabold text-amber-400 shrink-0">
-            ● 78/100 (Khá • Cần Tối Ưu Thêm)
+    <!-- BOTTOM STICKY ACTION BAR (HỖ TRỢ SAFE-AREA IPHONE & CHIA 3 NÚT ĐỀU TRÊN MOBILE) -->
+    <div class="fixed bottom-0 inset-x-0 z-30 bg-slate-900/95 backdrop-blur-md border-t border-slate-700 text-white pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] px-3 sm:px-6 shadow-2xl">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+        <div class="flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto min-w-0">
+          <div class="flex items-center gap-1.5 min-w-0 truncate">
+            <span class="text-slate-400 hidden md:inline">Website đang xem:</span>
+            <strong id="stickyBarDomain" class="font-mono text-indigo-300 truncate">https://bomcongnghiephn.com/</strong>
+          </div>
+          <span class="text-slate-500 hidden sm:inline">•</span>
+          <span id="stickyBarScoreBadge" class="inline-flex items-center gap-1 font-extrabold text-amber-400 shrink-0 text-[11px] sm:text-xs">
+            ● 78/100 (Khá)
           </span>
         </div>
 
-        <div class="flex items-center gap-2 shrink-0">
-          <button id="btnStickyCopy" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-600 transition">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-            <span>Copy toàn bộ báo cáo</span>
+        <div class="grid grid-cols-3 sm:flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto shrink-0">
+          <button id="btnStickyCopy" type="button" class="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-600 transition whitespace-nowrap text-[11px] sm:text-xs">
+            <i data-lucide="copy" class="w-3.5 h-3.5 shrink-0"></i>
+            <span class="sm:hidden">Copy</span>
+            <span class="hidden sm:inline">Copy báo cáo</span>
           </button>
-          <button id="btnStickyDoc" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold transition">
-            <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
-            <span>Tải file .DOC</span>
+          <button id="btnStickyDoc" type="button" class="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold transition whitespace-nowrap text-[11px] sm:text-xs">
+            <i data-lucide="file-down" class="w-3.5 h-3.5 shrink-0"></i>
+            <span>Tải .DOC</span>
           </button>
-          <button id="btnStickyPdf" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold transition">
-            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-            <span>Xuất Báo Cáo (.PDF)</span>
+          <button id="btnStickyPdf" type="button" class="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold transition whitespace-nowrap text-[11px] sm:text-xs">
+            <i data-lucide="printer" class="w-3.5 h-3.5 shrink-0"></i>
+            <span>Xuất .PDF</span>
           </button>
         </div>
       </div>
     </div>
 
     <!-- =================================================================== -->
-    <!-- MODAL 1: CẨM NANG CHUẨN MARKETING SME (QUY TRÌNH 03 BƯỚC TỰ TỐI ƯU)  -->
+    <!-- MODAL 1: CẨM NANG CHUẨN MARKETING SME (HEADER STICKY TRÊN MOBILE)   -->
     <!-- =================================================================== -->
-    <div id="modalSmeGuide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-      <div class="bg-slate-50 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
-        <!-- Header Modal -->
-        <div class="flex items-center justify-between p-5 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 text-white">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 flex items-center justify-center shrink-0">
+    <div id="modalSmeGuide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-3 sm:p-4">
+      <div class="bg-slate-50 rounded-2xl w-[calc(100vw-1.5rem)] max-w-4xl max-h-[84dvh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+        <div class="sticky top-0 z-10 flex items-center justify-between p-4 sm:p-5 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 text-white shrink-0">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 flex items-center justify-center shrink-0">
               <i data-lucide="zap" class="w-5 h-5"></i>
             </div>
-            <div>
+            <div class="min-w-0">
               <div class="flex items-center gap-2 flex-wrap">
-                <h3 class="font-extrabold text-base sm:text-lg text-white">Cẩm Nang Tự Tối Ưu Website Chuẩn Marketing Cho Chủ Doanh Nghiệp SME</h3>
-                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-500 text-white">
+                <h3 class="font-extrabold text-sm sm:text-lg text-white leading-snug">Cẩm Nang Tự Tối Ưu Website Chuẩn Marketing SME</h3>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500 text-white shrink-0">
                   JyabinAI Action Kit
                 </span>
               </div>
-              <p id="smeGuideSubtitle" class="text-xs text-indigo-200 mt-0.5">
-                Quy trình 03 bước đơn giản giúp chủ doanh nghiệp nâng cấp website không cần rành lập trình
+              <p id="smeGuideSubtitle" class="text-[11px] sm:text-xs text-indigo-200 mt-0.5 truncate">
+                Quy trình 03 bước đơn giản giúp chủ doanh nghiệp nâng cấp website
               </p>
             </div>
           </div>
-          <button type="button" id="btnCloseSmeGuideModal" class="text-white/70 hover:text-white">
+          <button type="button" id="btnCloseSmeGuideModal" class="p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20 shrink-0">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <!-- Body Modal -->
-        <div class="p-5 overflow-y-auto space-y-5 text-xs sm:text-sm">
-          <!-- Quy trình 03 Bước Tự Tối Ưu Website Dành Cho Chủ Doanh Nghiệp Nhỏ -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 rounded-2xl bg-white border-2 border-indigo-200 shadow-sm space-y-2">
+        <div class="p-4 sm:p-5 overflow-y-auto space-y-5 text-xs sm:text-sm flex-1">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-indigo-200 shadow-sm space-y-2">
               <div class="flex items-center justify-between">
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-indigo-600 text-white">BƯỚC 1</span>
                 <i data-lucide="gauge" class="w-5 h-5 text-indigo-600"></i>
@@ -1006,7 +1006,7 @@
               </p>
             </div>
 
-            <div class="p-4 rounded-2xl bg-white border-2 border-purple-200 shadow-sm space-y-2">
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-purple-200 shadow-sm space-y-2">
               <div class="flex items-center justify-between">
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-purple-600 text-white">BƯỚC 2</span>
                 <i data-lucide="wand-2" class="w-5 h-5 text-purple-600"></i>
@@ -1017,56 +1017,55 @@
               </p>
             </div>
 
-            <div class="p-4 rounded-2xl bg-white border-2 border-emerald-200 shadow-sm space-y-2">
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-emerald-200 shadow-sm space-y-2">
               <div class="flex items-center justify-between">
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-600 text-white">BƯỚC 3</span>
                 <i data-lucide="phone-call" class="w-5 h-5 text-emerald-600"></i>
               </div>
               <h4 class="font-extrabold text-slate-900 text-sm">Bổ Sung Nút Gọi Hotline / Zalo 1 Chạm</h4>
               <p class="text-xs text-slate-600 leading-relaxed">
-                Gắn liên kết <code class="font-mono">tel:</code> và <code class="font-mono">zalo.me</code> nổi trên màn hình di động kèm biểu mẫu nhận báo giá nhanh để tăng gấp đôi tỷ lệ chốt đơn từ khách truy cập.
+                Gắn liên kết <code class="font-mono">tel:</code> và <code class="font-mono">zalo.me</code> nổi trên màn hình di động kèm biểu mẫu nhận báo giá nhanh để tăng gấp đôi tỷ lệ chốt đơn.
               </p>
             </div>
           </div>
 
-          <!-- Bộ Mẫu Quảng Cáo Google Ads & Bài Đăng Zalo/Facebook Viết Sẵn Bởi JyabinAI -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="p-4 rounded-2xl bg-white border border-blue-200 shadow-sm flex flex-col justify-between space-y-3">
-              <div class="space-y-2">
+            <div class="p-4 rounded-2xl bg-white border border-blue-200 shadow-sm flex flex-col justify-between space-y-3 min-w-0">
+              <div class="space-y-2 min-w-0">
                 <div class="flex items-center justify-between gap-2">
                   <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase text-blue-800">
-                    <i data-lucide="search" class="w-4 h-4 text-blue-600"></i>
-                    Mẫu Quảng Cáo Google Search Ads Gợi Ý
+                    <i data-lucide="search" class="w-4 h-4 text-blue-600 shrink-0"></i>
+                    <span>Mẫu Quảng Cáo Google Search Ads</span>
                   </span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Chuẩn CTR cao</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 shrink-0">Chuẩn CTR</span>
                 </div>
-                <div id="aiStudioGoogleAdPreview" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 font-sans text-xs"></div>
+                <div id="aiStudioGoogleAdPreview" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 font-sans text-xs break-words"></div>
               </div>
               <button
                 type="button"
                 id="btnCopyGoogleAdKit"
-                class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition"
+                class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition"
               >
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                 <span>Copy mẫu quảng cáo Google Ads</span>
               </button>
             </div>
 
-            <div class="p-4 rounded-2xl bg-white border border-purple-200 shadow-sm flex flex-col justify-between space-y-3">
-              <div class="space-y-2">
+            <div class="p-4 rounded-2xl bg-white border border-purple-200 shadow-sm flex flex-col justify-between space-y-3 min-w-0">
+              <div class="space-y-2 min-w-0">
                 <div class="flex items-center justify-between gap-2">
                   <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase text-purple-900">
-                    <i data-lucide="share-2" class="w-4 h-4 text-purple-600"></i>
-                    Mẫu Bài Đăng Facebook &amp; Tin Nhắn Zalo
+                    <i data-lucide="share-2" class="w-4 h-4 text-purple-600 shrink-0"></i>
+                    <span>Mẫu Bài Đăng Facebook &amp; Zalo</span>
                   </span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">Tối ưu Chốt đơn</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200 shrink-0">Chốt đơn</span>
                 </div>
-                <pre id="aiStudioSocialPostPreview" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 font-sans text-xs text-slate-700 whitespace-pre-wrap leading-relaxed break-words [overflow-wrap:anywhere]"></pre>
+                <pre id="aiStudioSocialPostPreview" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 font-sans text-xs text-slate-700 whitespace-pre-wrap leading-relaxed break-words max-w-full overflow-x-auto"></pre>
               </div>
               <button
                 type="button"
                 id="btnCopySocialPostKit"
-                class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition"
+                class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition"
               >
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                 <span>Copy bài đăng Facebook / Zalo</span>
@@ -1074,11 +1073,10 @@
             </div>
           </div>
 
-          <!-- Lộ trình Hành động 3 Giai đoạn -->
           <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between flex-wrap gap-2">
               <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2">
-                <i data-lucide="calendar-check-2" class="w-4 h-4 text-emerald-600"></i>
+                <i data-lucide="calendar-check-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
                 <span>Danh Sách Việc Cần Làm Cho Website Đang Kiểm Tra</span>
               </h4>
               <span class="text-[11px] text-slate-500 font-semibold">Tổng hợp tự động bởi JyabinAI</span>
@@ -1087,91 +1085,90 @@
           </div>
         </div>
 
-        <!-- Footer Modal -->
-        <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between flex-wrap gap-2">
+        <div class="p-3.5 sm:p-4 bg-white border-t border-slate-200 flex items-center justify-between flex-wrap gap-2 shrink-0">
           <button
             type="button"
             id="btnJumpToHeadPatchFromGuide"
-            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm transition"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm transition"
           >
-            <i data-lucide="wand-2" class="w-4 h-4"></i>
-            <span>⚡ Cuộn tới Cụm Mã &lt;head&gt; Vá Lỗi Tự Động</span>
+            <i data-lucide="wand-2" class="w-4 h-4 shrink-0"></i>
+            <span>⚡ Cuộn tới Cụm Mã &lt;head&gt; Vá Lỗi</span>
           </button>
           <button
             type="button"
             id="btnCloseSmeGuideBottom"
             class="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition"
           >
-            Đóng cửa sổ
+            Đóng
           </button>
         </div>
       </div>
     </div>
 
-    <!-- MODAL 2: BẢNG TIÊU CHÍ CHẤM ĐIỂM (/100) DẠNG 4 THẺ MÀU BENTO GRID -->
-    <div id="modalRubric" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-      <div class="bg-slate-50 rounded-2xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
-        <div class="flex items-center justify-between p-5 bg-white border-b border-slate-200">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-sm">
+    <!-- MODAL 2: BẢNG TIÊU CHÍ CHẤM ĐIỂM (/100) -->
+    <div id="modalRubric" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-3 sm:p-4">
+      <div class="bg-slate-50 rounded-2xl w-[calc(100vw-1.5rem)] max-w-5xl max-h-[84dvh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+        <div class="sticky top-0 z-10 flex items-center justify-between p-4 sm:p-5 bg-white border-b border-slate-200 shrink-0">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-sm shrink-0">
               <i data-lucide="award" class="w-5 h-5"></i>
             </div>
-            <div>
-              <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">Hệ Thống Tiêu Chí Chấm Điểm Website Chuẩn Marketing (100 Điểm)</h3>
-              <p class="text-xs text-slate-500">Thiết kế theo 04 Trụ cột Marketing thực chiến &amp; Phổ điểm 4 mức cân bằng cho Doanh nghiệp SME</p>
+            <div class="min-w-0">
+              <h3 class="font-extrabold text-slate-900 text-sm sm:text-lg leading-snug">Hệ Thống Tiêu Chí Chấm Điểm Website Chuẩn Marketing (100 Điểm)</h3>
+              <p class="text-[11px] sm:text-xs text-slate-500 truncate">Thiết kế theo 04 Trụ cột Marketing thực chiến &amp; Phổ điểm 4 mức cân bằng</p>
             </div>
           </div>
-          <button type="button" id="btnCloseRubricModal" class="text-slate-400 hover:text-slate-600">
+          <button type="button" id="btnCloseRubricModal" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 shrink-0">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
-        <div id="rubricTableBodyContainer" class="p-5 overflow-y-auto space-y-5 text-xs sm:text-sm"></div>
+        <div id="rubricTableBodyContainer" class="p-4 sm:p-5 overflow-y-auto space-y-5 text-xs sm:text-sm flex-1"></div>
 
-        <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between flex-wrap gap-2">
-          <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
-            <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">Đạt chuẩn: 100% điểm</span>
-            <span class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-300">Khá: 70–75% điểm</span>
-            <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Cảnh báo: 40–50% điểm</span>
-            <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-300">Chưa đạt: 0% điểm</span>
+        <div class="p-3.5 sm:p-4 bg-white border-t border-slate-200 flex items-center justify-between flex-wrap gap-2 shrink-0">
+          <div class="flex flex-wrap items-center gap-1.5 text-[11px] font-bold">
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">Đạt: 100%</span>
+            <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-300">Khá: 75%</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Cảnh báo: 40–50%</span>
+            <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300">Chưa đạt: 0%</span>
           </div>
           <button type="button" id="btnCloseRubricModalBottom" class="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition">
-            Đã hiểu &amp; Đóng
+            Đóng
           </button>
         </div>
       </div>
     </div>
 
     <!-- MODAL 3: XEM BẢN TEXT -->
-    <div id="modalReportPreview" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-      <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[88vh] flex flex-col shadow-2xl border border-slate-200">
-        <div class="flex items-center justify-between p-5 border-b border-slate-200">
-          <div class="flex items-center gap-2">
-            <i data-lucide="file-check-2" class="w-5 h-5 text-indigo-600"></i>
-            <h3 class="font-extrabold text-slate-900 text-base">Xem Trước Báo Cáo Kiểm Toán Marketing (Unicode Text)</h3>
+    <div id="modalReportPreview" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-3 sm:p-4">
+      <div class="bg-white rounded-2xl w-[calc(100vw-1.5rem)] max-w-3xl max-h-[84dvh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+        <div class="sticky top-0 z-10 flex items-center justify-between p-4 sm:p-5 bg-white border-b border-slate-200 shrink-0">
+          <div class="flex items-center gap-2 min-w-0">
+            <i data-lucide="file-check-2" class="w-5 h-5 text-indigo-600 shrink-0"></i>
+            <h3 class="font-extrabold text-slate-900 text-sm sm:text-base truncate">Xem Trước Báo Cáo Kiểm Toán Marketing</h3>
           </div>
-          <button type="button" id="btnCloseReportModal" class="text-slate-400 hover:text-slate-600">
+          <button type="button" id="btnCloseReportModal" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 shrink-0">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
-        <div class="p-5 flex-1 overflow-y-auto">
+        <div class="p-4 sm:p-5 flex-1 overflow-y-auto">
           <textarea
             id="textareaReportOutput"
             readonly
-            rows="18"
-            class="w-full p-4 rounded-xl bg-slate-900 text-emerald-50 font-mono text-xs leading-relaxed focus:outline-none"
+            rows="16"
+            class="w-full p-3.5 rounded-xl bg-slate-900 text-emerald-50 font-mono text-xs leading-relaxed focus:outline-none"
           ></textarea>
         </div>
-        <div class="p-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
-          <span class="text-xs text-slate-500">Bố cục khung Unicode sắc nét, gửi trực tiếp qua Zalo, Email hoặc xuất PDF/Word.</span>
-          <div class="flex items-center gap-2">
+        <div class="p-3.5 sm:p-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 shrink-0">
+          <span class="text-xs text-slate-500 hidden sm:inline">Gửi trực tiếp qua Zalo, Email hoặc xuất PDF/Word.</span>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
             <button
               type="button"
               id="btnDownloadDocFromModal"
               class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition"
             >
               <i data-lucide="file-down" class="w-4 h-4"></i>
-              <span>Tải Báo Cáo (.DOC)</span>
+              <span>Tải .DOC</span>
             </button>
             <button
               type="button"
@@ -1179,7 +1176,7 @@
               class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition"
             >
               <i data-lucide="copy" class="w-4 h-4"></i>
-              <span>Sao chép vào Clipboard</span>
+              <span>Sao chép Text</span>
             </button>
           </div>
         </div>
@@ -1189,7 +1186,7 @@
     <!-- DRAWER: LỊCH SỬ KIỂM TRA -->
     <div id="drawerHistoryOverlay" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm">
       <div class="fixed inset-y-0 right-0 max-w-md w-full bg-white shadow-2xl border-l border-slate-200 flex flex-col">
-        <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+        <div class="sticky top-0 z-10 p-4 sm:p-5 bg-white border-b border-slate-200 flex items-center justify-between shrink-0">
           <div class="flex items-center gap-2">
             <i data-lucide="history" class="w-5 h-5 text-indigo-600"></i>
             <div>
@@ -1197,14 +1194,14 @@
               <p class="text-xs text-slate-500">Bấm vào từng mục để mở lại báo cáo chi tiết</p>
             </div>
           </div>
-          <button type="button" id="btnCloseHistoryDrawer" class="text-slate-400 hover:text-slate-600">
+          <button type="button" id="btnCloseHistoryDrawer" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
 
         <div id="historyListContainer" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
 
-        <div class="p-4 border-t border-slate-200 flex items-center justify-between bg-slate-50">
+        <div class="p-4 border-t border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
           <button
             type="button"
             id="btnClearAllHistory"
@@ -1225,7 +1222,7 @@
     </div>
 
     <!-- TOAST CONTAINER -->
-    <div id="toastContainer" class="fixed bottom-16 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toastContainer" class="fixed top-20 right-3 sm:bottom-16 sm:top-auto sm:left-5 sm:right-auto z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   </div>
 
