@@ -1,4 +1,3 @@
----
 
 ## KHỐI 3: Toàn bộ nội dung file `BANG_KIEM_THU.md` (08 Ca Kiểm Thử Thực Tế Đạt Chuẩn Bảng A)
 
