@@ -1,13 +1,10 @@
 /**
  * ============================================================================
  * FILE 4/4: js/ui-controller.js
- * Chứa:
- * - Cập nhật chính xác nhãn AI theo cờ aiResult.isMock:
- *   + Khi aiResult.isMock === false: Hiển thị nhãn xanh "🟢 ✨ Phân tích chuyên sâu bởi JyabinAI"
- *   + Khi aiResult.isMock === true : Hiển thị nhãn vàng "🟡 Bản demo vòng loại - Dữ liệu mô phỏng AI"
- * - Kết nối nút Header "⚡ Cẩm nang Chuẩn Marketing SME" với Modal Quy trình 03 bước
- *   kèm nút cuộn mượt thẳng xuống khu vực Cụm mã <head> Vá lỗi tự động.
- * - Đồng bộ thương hiệu "JyabinAI" trên toàn bộ giao diện, khung Chat và báo cáo (.PDF, .DOC, Text).
+ * Đã tối ưu toàn diện Mobile Responsive:
+ * - Không dùng word-break: break-all trên các tiêu đề/đoạn văn tiếng Việt
+ * - Hiển thị trọn vẹn badge trích dẫn AI và các khối code trong Checklist trên màn hình 375px
+ * - Cập nhật chính xác nhãn xanh "✨ Phân tích chuyên sâu bởi JyabinAI" khi isMock === false
  * ============================================================================
  */
 window.JyabinAI = window.JyabinAI || {};
@@ -49,10 +46,10 @@ window.JyabinAI = window.JyabinAI || {};
     const iconName = type === 'error' ? 'alert-octagon' : type === 'warning' ? 'alert-triangle' : 'check-circle-2';
 
     const toast = document.createElement('div');
-    toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-xs sm:text-sm font-bold transition-all duration-300 max-w-md ${colorClasses}`;
+    toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-xs sm:text-sm font-bold transition-all duration-300 max-w-[90vw] sm:max-w-md ${colorClasses}`;
     toast.innerHTML = `
       <i data-lucide="${iconName}" class="w-4 h-4 shrink-0"></i>
-      <span class="break-words [overflow-wrap:anywhere]">${escapeHtml(message)}</span>
+      <span class="break-words">${escapeHtml(message)}</span>
     `;
     container.appendChild(toast);
     refreshIcons();
@@ -295,7 +292,7 @@ window.JyabinAI = window.JyabinAI || {};
         <h2 style="font-size: 12.5pt; color: #1e1b4b; border-bottom: 2px solid #4f46e5; padding-bottom: 4px;">
           3. Cụm Mã HTML &lt;head&gt; Vá Lỗi Tự Động (Copy Dán Vào Website)
         </h2>
-        <pre style="padding: 10px; background-color: #f8fafc; border: 1px solid #cbd5e1; font-family: Consolas, monospace; font-size: 8.5pt; color: #1e1b4b; white-space: pre-wrap; word-break: break-all; margin: 8px 0 16px 0;">${escapeHtml(evaluation.masterHeadPatch)}</pre>
+        <pre style="padding: 10px; background-color: #f8fafc; border: 1px solid #cbd5e1; font-family: Consolas, monospace; font-size: 8.5pt; color: #1e1b4b; white-space: pre-wrap; word-break: break-word; margin: 8px 0 16px 0;">${escapeHtml(evaluation.masterHeadPatch)}</pre>
 
         <h2 style="font-size: 12.5pt; color: #1e1b4b; border-bottom: 2px solid #4f46e5; padding-bottom: 4px;">
           4. Bảng Checklist Kiểm Toán Chi Tiết 12 Hạng Mục
@@ -361,13 +358,13 @@ window.JyabinAI = window.JyabinAI || {};
 
     document.getElementById('aiStudioGoogleAdPreview').innerHTML = `
       <div class="text-[11px] font-bold text-slate-800 flex items-center gap-1.5">
-        <span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-800 text-[10px] font-extrabold">Được tài trợ</span>
+        <span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-800 text-[10px] font-extrabold shrink-0">Được tài trợ</span>
         <span class="truncate text-slate-600">${escapeHtml(googleAd.displayUrl)}</span>
       </div>
-      <div class="text-sm sm:text-base font-bold text-[#1a0dab] leading-snug pt-0.5">
+      <div class="text-sm sm:text-base font-bold text-[#1a0dab] leading-snug pt-0.5 break-words">
         ${escapeHtml(googleAd.headline1)} | ${escapeHtml(googleAd.headline2)} | ${escapeHtml(googleAd.headline3)}
       </div>
-      <p class="text-xs text-[#4d5156] leading-relaxed">
+      <p class="text-xs text-[#4d5156] leading-relaxed break-words">
         ${escapeHtml(googleAd.desc1)} ${escapeHtml(googleAd.desc2)}
       </p>
     `;
@@ -409,17 +406,17 @@ window.JyabinAI = window.JyabinAI || {};
     if (typeof previousScoreForSameUrl === 'number') {
       const diff = score - previousScoreForSameUrl;
       if (diff > 0) {
-        deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300';
+        deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 text-center';
         deltaEl.textContent = `▲ +${diff} điểm so với lần kiểm tra trước (${previousScoreForSameUrl}đ)`;
       } else if (diff < 0) {
-        deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-300';
+        deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-300 text-center';
         deltaEl.textContent = `▼ ${diff} điểm so với lần kiểm tra trước (${previousScoreForSameUrl}đ)`;
       } else {
-        deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200';
+        deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 text-center';
         deltaEl.textContent = `● Giữ nguyên mức ${score}/100đ so với lần kiểm tra trước`;
       }
     } else {
-      deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200';
+      deltaEl.className = 'mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 text-center';
       deltaEl.textContent = '● Lần kiểm toán đầu tiên của tên miền này';
     }
 
@@ -432,7 +429,7 @@ window.JyabinAI = window.JyabinAI || {};
     const convPct = Math.round(((evaluation.pillars.mobile.score + evaluation.pillars.conversion.score) / 40) * 100);
 
     const buildReadinessRow = (name, pct) => {
-      const statusText = pct >= 80 ? 'Sẵn sàng chạy Ads' : pct >= 55 ? 'Cần tối ưu thêm' : 'Nguy cơ lỗ ngân sách';
+      const statusText = pct >= 80 ? 'Sẵn sàng' : pct >= 55 ? 'Cần tối ưu' : 'Rủi ro cao';
       const badgeCls = pct >= 80
         ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
         : pct >= 55
@@ -440,16 +437,16 @@ window.JyabinAI = window.JyabinAI || {};
           : 'bg-rose-100 text-rose-800 border-rose-300';
       return `
         <div class="flex items-center justify-between gap-2 p-2 rounded-lg bg-white border border-slate-200/80">
-          <span class="font-semibold text-slate-700">${escapeHtml(name)}</span>
-          <span class="px-2 py-0.5 rounded text-[10px] font-extrabold border ${badgeCls}">${statusText} (${pct}%)</span>
+          <span class="font-semibold text-slate-700 truncate">${escapeHtml(name)}</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-extrabold border shrink-0 ${badgeCls}">${statusText} (${pct}%)</span>
         </div>
       `;
     };
 
     document.getElementById('adReadinessContainer').innerHTML = [
-      buildReadinessRow('Google Search & Shopping Ads', seoPct),
+      buildReadinessRow('Google Search Ads', seoPct),
       buildReadinessRow('Facebook / Zalo Ads', socialPct),
-      buildReadinessRow('Năng lực Chốt đơn (Mobile CRO)', convPct)
+      buildReadinessRow('Năng lực Chốt đơn (CRO)', convPct)
     ].join('');
 
     const pillarsContainer = document.getElementById('pillarsProgressContainer');
@@ -457,14 +454,14 @@ window.JyabinAI = window.JyabinAI || {};
       const p = evaluation.pillars[key];
       return `
         <div class="space-y-1.5">
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-slate-800 flex items-center gap-1.5">
+          <div class="flex items-center justify-between text-xs gap-2">
+            <span class="font-bold text-slate-800 flex items-center gap-1.5 min-w-0">
               <span class="w-5 h-5 rounded-md ${p.badgeBg} flex items-center justify-center shrink-0">
                 <i data-lucide="${p.icon}" class="w-3 h-3"></i>
               </span>
-              <span>${escapeHtml(p.shortName)}</span>
+              <span class="truncate">${escapeHtml(p.shortName)}</span>
             </span>
-            <span class="font-mono font-extrabold text-slate-900">
+            <span class="font-mono font-extrabold text-slate-900 shrink-0">
               ${p.score}/${p.maxScore}đ <span class="text-slate-400 font-normal">(${p.percentage}%)</span>
             </span>
           </div>
@@ -503,16 +500,16 @@ window.JyabinAI = window.JyabinAI || {};
       ? (d.titleText.length > 70 ? d.titleText.slice(0, 67) + '...' : d.titleText)
       : '[Chưa có thẻ <title>] — Trang web sẽ bị Google tự đặt tiêu đề ngẫu nhiên';
     serpTitleEl.className = d.titleText
-      ? 'text-lg sm:text-[19px] font-medium text-[#1a0dab] hover:underline cursor-pointer leading-snug pt-1 break-words [overflow-wrap:anywhere]'
-      : 'text-base sm:text-lg font-bold text-rose-600 leading-snug pt-1 break-words [overflow-wrap:anywhere]';
+      ? 'text-base sm:text-[19px] font-medium text-[#1a0dab] hover:underline cursor-pointer leading-snug pt-1 break-words'
+      : 'text-sm sm:text-lg font-bold text-rose-600 leading-snug pt-1 break-words';
 
     const serpDescEl = document.getElementById('serpDescription');
     serpDescEl.textContent = d.metaDescText
       ? (d.metaDescText.length > 170 ? d.metaDescText.slice(0, 167) + '...' : d.metaDescText)
       : 'Trang web chưa có thẻ mô tả <meta name="description">. Hãy sao chép mã gợi ý ở Mục báo cáo 04 bên dưới để thu hút khách hàng trên Google.';
     serpDescEl.className = d.metaDescText
-      ? 'text-xs sm:text-[13px] text-[#4d5156] leading-relaxed break-words [overflow-wrap:anywhere]'
-      : 'text-xs sm:text-[13px] text-rose-600 italic leading-relaxed break-words [overflow-wrap:anywhere]';
+      ? 'text-xs sm:text-[13px] text-[#4d5156] leading-relaxed break-words'
+      : 'text-xs sm:text-[13px] text-rose-600 italic leading-relaxed break-words';
 
     document.getElementById('serpTitleCounter').innerHTML = `Độ dài Tiêu đề: <strong>${d.titleLength}</strong>/70 ký tự`;
     document.getElementById('serpDescCounter').innerHTML = `Độ dài Mô tả: <strong>${d.metaDescLength}</strong>/170 ký tự`;
@@ -562,11 +559,6 @@ window.JyabinAI = window.JyabinAI || {};
     }
   };
 
-  /**
-   * Cập nhật chính xác nhãn AI ở Ảnh 2 dựa theo aiResult.isMock:
-   * - Khi aiResult.isMock === false: Hiển thị nhãn xanh "🟢 ✨ Phân tích chuyên sâu bởi JyabinAI"
-   * - Khi aiResult.isMock === true : Hiển thị nhãn vàng "🟡 Bản demo vòng loại - Dữ liệu mô phỏng AI"
-   */
   const renderAiSection = (aiResult, totalScore = 78, isLoading = false) => {
     const skeleton = document.getElementById('aiLoadingSkeleton');
     const contentGrid = document.getElementById('aiContentGrid');
@@ -592,11 +584,11 @@ window.JyabinAI = window.JyabinAI || {};
     contentGrid.classList.remove('hidden');
 
     if (aiResult && aiResult.isMock === false) {
-      badge.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-sm';
-      badge.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span><span id="aiModeBadgeText">✨ Phân tích chuyên sâu bởi JyabinAI</span>`;
+      badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-sm';
+      badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span><span id="aiModeBadgeText">✨ Phân tích chuyên sâu bởi JyabinAI</span>`;
     } else {
-      badge.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 border border-amber-300';
-      badge.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span><span id="aiModeBadgeText">Bản demo vòng loại - Dữ liệu mô phỏng AI</span>`;
+      badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 border border-amber-300';
+      badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0"></span><span id="aiModeBadgeText">Bản demo vòng loại - Dữ liệu mô phỏng AI</span>`;
     }
 
     if (aiResult?.errorNotice) {
@@ -611,16 +603,16 @@ window.JyabinAI = window.JyabinAI || {};
     const buildCardHtml = (item, idx, isStrength) => {
       const numBg = isStrength ? 'bg-emerald-600' : 'bg-rose-600';
       const borderCol = isStrength ? 'border-emerald-200/80' : 'border-rose-200/80';
-      const quoteStr = escapeHtml(truncateShort(item.quote || '', 42));
+      const quoteStr = escapeHtml(item.quote || '');
       return `
-        <li style="animation-delay: ${idx * 90}ms" class="stagger-fade-up p-3.5 rounded-xl bg-white/95 border ${borderCol} shadow-sm min-w-0 overflow-hidden break-words [overflow-wrap:anywhere]">
+        <li style="animation-delay: ${idx * 90}ms" class="stagger-fade-up p-3.5 rounded-xl bg-white/95 border ${borderCol} shadow-sm min-w-0 overflow-hidden">
           <div class="flex items-start gap-2.5 min-w-0">
             <span class="w-5 h-5 rounded-full ${numBg} text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
             <div class="min-w-0 flex-1 space-y-1">
-              <h5 class="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug break-words [overflow-wrap:anywhere]">
+              <h5 class="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug break-words">
                 ${escapeHtml(item.title || '')}
               </h5>
-              <p class="text-xs text-slate-600 leading-relaxed break-words [overflow-wrap:anywhere]">
+              <p class="text-xs text-slate-600 leading-relaxed break-words">
                 ${escapeHtml(item.detail || '')}
               </p>
               ${quoteStr ? `<span class="ai-quote-badge">${quoteStr}</span>` : ''}
@@ -647,8 +639,8 @@ window.JyabinAI = window.JyabinAI || {};
     document.querySelectorAll('.checklist-filter-btn').forEach(btn => {
       const f = btn.getAttribute('data-filter');
       btn.className = f === filter
-        ? 'checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-sm'
-        : 'checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:bg-white/60';
+        ? 'checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-sm text-center'
+        : 'checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:bg-white/60 text-center';
     });
 
     const container = document.getElementById('checklistItemsContainer');
@@ -682,18 +674,18 @@ window.JyabinAI = window.JyabinAI || {};
 
         const suggestionHtml = item.aiSuggestedCode
           ? `
-            <div class="ai-suggestion-box mt-2.5 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div class="ai-suggestion-box mt-2.5 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 min-w-0">
               <div class="min-w-0 flex-1 space-y-1">
                 <span class="inline-flex items-center gap-1 text-[11px] font-extrabold text-purple-800">
-                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-600"></i>
-                  ✨ Gợi ý mẫu tối ưu từ JyabinAI (Copy dùng ngay):
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-purple-600 shrink-0"></i>
+                  <span>✨ Gợi ý mẫu tối ưu từ JyabinAI (Copy dùng ngay):</span>
                 </span>
-                <pre class="font-mono text-[11px] text-indigo-950 bg-white/85 p-2 rounded-lg border border-purple-200 overflow-x-auto whitespace-pre-wrap break-words [overflow-wrap:anywhere]">${escapeHtml(item.aiSuggestedCode)}</pre>
+                <pre class="font-mono text-[11px] text-indigo-950 bg-white/85 p-2 rounded-lg border border-purple-200 max-w-full overflow-x-auto whitespace-pre-wrap break-words">${escapeHtml(item.aiSuggestedCode)}</pre>
               </div>
               <button
                 type="button"
                 data-copy-suggestion="${escapeHtml(item.aiSuggestedCode)}"
-                class="btn-copy-ai-code inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition shrink-0"
+                class="btn-copy-ai-code w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition shrink-0"
               >
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                 <span>Copy mã mẫu</span>
@@ -703,11 +695,11 @@ window.JyabinAI = window.JyabinAI || {};
           : '';
 
         return `
-          <div style="animation-delay: ${idx * 60}ms" class="stagger-fade-up p-4 rounded-xl border border-slate-200 bg-white shadow-sm min-w-0 overflow-hidden ${pInfo.cardBorderClass}">
+          <div style="animation-delay: ${idx * 60}ms" class="stagger-fade-up p-3.5 sm:p-4 rounded-xl border border-slate-200 bg-white shadow-sm min-w-0 overflow-hidden ${pInfo.cardBorderClass}">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 min-w-0">
-              <div class="flex items-start sm:items-center gap-2.5 min-w-0">
+              <div class="flex items-start sm:items-center gap-2 min-w-0">
                 <i data-lucide="${st.icon}" class="w-5 h-5 ${st.iconColor} shrink-0 mt-0.5 sm:mt-0"></i>
-                <h5 class="font-bold text-slate-900 text-sm break-words [overflow-wrap:anywhere]">
+                <h5 class="font-bold text-slate-900 text-xs sm:text-sm break-words">
                   <span class="text-slate-400 font-mono mr-1">#${item.id}</span>
                   ${escapeHtml(item.title)}
                 </h5>
@@ -724,10 +716,10 @@ window.JyabinAI = window.JyabinAI || {};
             </div>
 
             <div class="mt-3 pl-0 sm:pl-7 space-y-2 text-xs min-w-0">
-              <div class="p-2.5 rounded-lg bg-slate-900 text-slate-100 font-mono text-[11px] sm:text-xs break-words [overflow-wrap:anywhere]">
+              <div class="p-2.5 rounded-lg bg-slate-900 text-slate-100 font-mono text-[11px] sm:text-xs max-w-full overflow-x-auto whitespace-pre-wrap break-words">
                 <span class="text-slate-400 select-none">Hiện trạng quét được: </span>${escapeHtml(item.detectedTag)}
               </div>
-              <p class="text-slate-600 leading-relaxed break-words [overflow-wrap:anywhere]">
+              <p class="text-slate-600 leading-relaxed break-words">
                 <strong class="text-slate-800">Tư vấn tối ưu:</strong> ${escapeHtml(item.recommendation)}
               </p>
               ${suggestionHtml}
@@ -737,19 +729,19 @@ window.JyabinAI = window.JyabinAI || {};
       }).join('');
 
       sectionsHtml.push(`
-        <div class="space-y-3">
-          <div class="flex items-center justify-between px-4 py-3 rounded-xl border ${pInfo.headerBg}">
-            <h4 class="font-extrabold text-xs sm:text-sm flex items-center gap-2">
+        <div class="space-y-3 min-w-0">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-3.5 sm:px-4 py-3 rounded-xl border ${pInfo.headerBg}">
+            <h4 class="font-extrabold text-xs sm:text-sm flex items-center gap-2 min-w-0">
               <span class="w-6 h-6 rounded-lg ${pInfo.badgeBg} flex items-center justify-center shrink-0">
                 <i data-lucide="${pInfo.icon}" class="w-3.5 h-3.5"></i>
               </span>
-              <span>${escapeHtml(pInfo.name)}</span>
+              <span class="break-words">${escapeHtml(pInfo.name)}</span>
             </h4>
-            <span class="font-mono font-extrabold text-xs sm:text-sm px-2.5 py-1 rounded-lg bg-white/80 border border-current/10">
+            <span class="font-mono font-extrabold text-xs px-2.5 py-1 rounded-lg bg-white/85 border border-current/10 self-start sm:self-auto shrink-0">
               ${pInfo.score}/${pInfo.maxScore} điểm (${pInfo.percentage}%)
             </span>
           </div>
-          <div class="grid grid-cols-1 gap-3">
+          <div class="grid grid-cols-1 gap-3 min-w-0">
             ${cardsHtml}
           </div>
         </div>
@@ -788,14 +780,14 @@ window.JyabinAI = window.JyabinAI || {};
             <span class="px-2 py-0.5 rounded font-extrabold border shrink-0 ${badgeColorMap[t.color] || badgeColorMap.blue}">
               ${escapeHtml(t.label)}
             </span>
-            <span class="text-slate-600 pt-0.5">${escapeHtml(t.desc)}</span>
+            <span class="text-slate-600 pt-0.5 break-words">${escapeHtml(t.desc)}</span>
           </div>
         `).join('');
 
         return `
           <div class="p-3 rounded-xl bg-white border border-slate-200/90 shadow-sm space-y-2">
             <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-1.5">
-              <span class="font-extrabold text-slate-900 text-xs sm:text-sm">
+              <span class="font-extrabold text-slate-900 text-xs sm:text-sm break-words">
                 <span class="font-mono text-indigo-600 mr-1">${escapeHtml(c.id)}</span>${escapeHtml(c.name)}
               </span>
               <span class="px-2 py-0.5 rounded-md font-mono font-extrabold text-xs bg-slate-100 text-slate-800 shrink-0">
@@ -811,23 +803,23 @@ window.JyabinAI = window.JyabinAI || {};
 
       return `
         <div class="rounded-2xl border ${card.borderClass} ${card.bgLight} overflow-hidden shadow-sm flex flex-col">
-          <div class="p-4 bg-gradient-to-r ${card.headerGradient} text-white flex items-center justify-between gap-2">
-            <div>
-              <h4 class="font-extrabold text-sm sm:text-base">${escapeHtml(card.title)}</h4>
+          <div class="p-3.5 sm:p-4 bg-gradient-to-r ${card.headerGradient} text-white flex items-center justify-between gap-2">
+            <div class="min-w-0">
+              <h4 class="font-extrabold text-sm sm:text-base leading-snug">${escapeHtml(card.title)}</h4>
               <p class="text-[11px] text-white/85 mt-0.5">${escapeHtml(card.subtitle)}</p>
             </div>
-            <span class="px-3 py-1 rounded-xl bg-white/20 backdrop-blur-sm font-mono font-extrabold text-xs sm:text-sm shrink-0">
+            <span class="px-2.5 py-1 rounded-xl bg-white/20 backdrop-blur-sm font-mono font-extrabold text-xs shrink-0">
               ${escapeHtml(card.totalWeight)}
             </span>
           </div>
-          <div class="p-3.5 space-y-3 flex-1">
+          <div class="p-3 sm:p-3.5 space-y-3 flex-1">
             ${itemsHtml}
           </div>
         </div>
       `;
     }).join('');
 
-    container.innerHTML = `<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">${cardsHtml}</div>`;
+    container.innerHTML = `<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">${cardsHtml}</div>`;
   };
 
   const renderFullDashboard = (record, previousScoreForSameUrl) => {
@@ -852,10 +844,10 @@ window.JyabinAI = window.JyabinAI || {};
     const stickyScoreEl = document.getElementById('stickyBarScoreBadge');
     stickyScoreEl.textContent = `● ${evaluation.totalScore}/100 (${theme.label})`;
     stickyScoreEl.className = evaluation.totalScore >= 80
-      ? 'inline-flex items-center gap-1 font-extrabold text-emerald-400 shrink-0'
+      ? 'inline-flex items-center gap-1 font-extrabold text-emerald-400 shrink-0 text-[11px] sm:text-xs'
       : evaluation.totalScore >= 55
-        ? 'inline-flex items-center gap-1 font-extrabold text-amber-400 shrink-0'
-        : 'inline-flex items-center gap-1 font-extrabold text-rose-400 shrink-0';
+        ? 'inline-flex items-center gap-1 font-extrabold text-amber-400 shrink-0 text-[11px] sm:text-xs'
+        : 'inline-flex items-center gap-1 font-extrabold text-rose-400 shrink-0 text-[11px] sm:text-xs';
 
     document.getElementById('masterHeadPatchCode').textContent = evaluation.masterHeadPatch;
     document.getElementById('chatContextDomainLabel').textContent = `Đang tư vấn: ${url} (${evaluation.totalScore}/100đ)`;
@@ -891,10 +883,10 @@ window.JyabinAI = window.JyabinAI || {};
     const buildHistoryItemHtml = (item) => {
       const theme = getScoreTheme(item.evaluation.totalScore);
       return `
-        <div class="p-3.5 rounded-xl border border-slate-200 hover:border-indigo-400 bg-white shadow-sm transition group flex items-center justify-between gap-3">
+        <div class="p-3.5 rounded-xl border border-slate-200 hover:border-indigo-400 bg-white shadow-sm transition group flex items-center justify-between gap-3 min-w-0">
           <button type="button" data-history-load="${escapeHtml(item.id)}" class="flex-1 text-left min-w-0">
             <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold border ${theme.bgBadge}">
+              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold border shrink-0 ${theme.bgBadge}">
                 ${item.evaluation.totalScore}/100đ
               </span>
               <span class="text-[11px] font-semibold text-slate-400 truncate">${escapeHtml(item.sourceLabel)}</span>
@@ -969,8 +961,8 @@ window.JyabinAI = window.JyabinAI || {};
     document.querySelectorAll('.input-tab-btn').forEach(btn => {
       const active = btn.getAttribute('data-tab') === tabName;
       btn.className = active
-        ? 'input-tab-btn active-tab flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-indigo-600 text-white shadow-sm'
-        : 'input-tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900';
+        ? 'input-tab-btn active-tab flex items-center justify-center gap-1.5 px-2 sm:px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-indigo-600 text-white shadow-sm whitespace-nowrap'
+        : 'input-tab-btn flex items-center justify-center gap-1.5 px-2 sm:px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900 whitespace-nowrap';
     });
     document.querySelectorAll('.input-tab-panel').forEach(p => p.classList.add('hidden'));
     document.getElementById(`tabPanel-${tabName}`)?.classList.remove('hidden');
@@ -1119,7 +1111,7 @@ window.JyabinAI = window.JyabinAI || {};
     } else {
       const formatted = escapeHtml(text)
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`(.*?)`/g, '<code class="font-mono bg-indigo-50 text-indigo-800 px-1 py-0.5 rounded">$1</code>')
+        .replace(/`(.*?)`/g, '<code class="font-mono bg-indigo-50 text-indigo-800 px-1 py-0.5 rounded break-words">$1</code>')
         .replace(/\n/g, '<br/>');
       msgDiv.className = 'flex justify-start';
       msgDiv.innerHTML = `<div class="max-w-[92%] p-3 rounded-2xl rounded-tl-sm bg-white border border-slate-200 text-slate-800 leading-relaxed shadow-sm break-words">${formatted}</div>`;
@@ -1274,7 +1266,7 @@ window.JyabinAI = window.JyabinAI || {};
     document.getElementById('btnCloseRubricModal').addEventListener('click', closeRubric);
     document.getElementById('btnCloseRubricModalBottom').addEventListener('click', closeRubric);
 
-    // Modal Cẩm nang Chuẩn Marketing SME (Quy trình 03 bước tự tối ưu)
+    // Modal Cẩm nang Chuẩn Marketing SME
     const modalSmeGuide = document.getElementById('modalSmeGuide');
     const openSmeGuide = () => {
       if (currentAuditRecord) renderSmeGuideModalContent(currentAuditRecord);
