@@ -18,5 +18,5 @@
 ### 🔹 Tình huống 2: Tối ưu ngân sách Ngữ cảnh 4.000–6.000 Tokens & Ép kiểu JSON Schema
 - **Vấn đề phát hiện khi test:** Nếu chỉ gửi điểm số sang AI, lời nhận xét rất chung chung; nhưng nếu gửi nguyên mã HTML thô (nặng 300KB chứa đầy `<script>`, `<svg>`) sẽ gây tràn giới hạn Token và chậm phản hồi.
 - **Chỉ đạo kỹ thuật của đội cho AI:** *"Xây dựng hàm `buildRichAiPayload` tạo bản sao `doc.body`, xóa sạch `<script>`, `<style>`, `<svg>`, chỉ trích xuất Menu dịch vụ, các thẻ H1–H3 và tối đa 6.000 ký tự nội dung chính (gói gọn trong 4.000–6.000 tokens). Đồng thời dùng `responseSchema` ép đầu ra trả về đúng 03 điểm mạnh & 03 điểm cần cải thiện theo ngôn ngữ tư vấn kinh doanh."*
-- ![Mô tả ngắn gọn về bức ảnh](./images/minh-chung-th-2.1.png)
+- ![Mô tả ngắn gọn về bức ảnh](./images/minh-chungth-2.1.png)
 - ![Mô tả ngắn gọn về bức ảnh](./images/minh-chung-th-2.2.png)
