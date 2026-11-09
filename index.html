@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JyabinAI (Vibe-coding - Đề 5) — Đánh Giá & Kiểm Toán Hiệu Suất Marketing Website</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col pb-20">
+
+  <!-- ===================================================================== -->
+  <!-- VÙNG GIAO DIỆN CHÍNH (.no-print SẼ ẨN KHI XUẤT BÁO CÁO PDF A4)        -->
+  <!-- ===================================================================== -->
+  <div class="no-print flex-1 flex flex-col">
+
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+        <!-- Brand Logo JyabinAI (Click cuộn mượt về đầu trang) -->
+        <button id="btnBrandScrollTop" type="button" class="flex items-center gap-3 min-w-0 text-left group focus:outline-none" title="Cuộn về đầu trang">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-emerald-500 p-0.5 shadow-md shadow-indigo-500/20 shrink-0 group-hover:scale-105 transition">
+            <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
+              <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="jyabinGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#4f46e5" />
+                    <stop offset="50%" stop-color="#9333ea" />
+                    <stop offset="100%" stop-color="#10b981" />
+                  </linearGradient>
+                </defs>
+                <rect x="6" y="18" width="4.5" height="10" rx="1.5" fill="#6366f1" />
+                <rect x="13" y="13" width="4.5" height="15" rx="1.5" fill="#9333ea" />
+                <rect x="20" y="8" width="4.5" height="20" rx="1.5" fill="#10b981" />
+                <circle cx="21" cy="15" r="9" stroke="url(#jyabinGrad)" stroke-width="2.6" fill="rgba(255,255,255,0.25)" />
+                <path d="M27.5 21.5L33 27" stroke="url(#jyabinGrad)" stroke-width="3" stroke-linecap="round" />
+                <path d="M8 14L15 9L22 6" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-indigo-700 via-purple-700 to-emerald-600 bg-clip-text text-transparent">
+                JyabinAI
+              </span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-200/80">
+                Vibe-coding - Đề 5
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 hidden sm:block">
+              Đánh giá &amp; Kiểm toán Hiệu suất Marketing Website Đa Kênh
+            </p>
+          </div>
+        </button>
+
+        <!-- Header Actions -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <button id="btnOpenRubricModal" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200/70 transition">
+            <i data-lucide="award" class="w-4 h-4 text-indigo-600"></i>
+            <span class="hidden md:inline">Tiêu chí chấm điểm</span>
+            <span class="md:hidden">Tiêu chí</span>
+          </button>
+
+          <button id="btnToggleHistoryDrawer" type="button" class="relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+            <i data-lucide="history" class="w-4 h-4 text-slate-600"></i>
+            <span class="hidden sm:inline">Lịch sử</span>
+            <span id="historyCountBadge" class="px-1.5 py-0.2 rounded-full text-[11px] font-extrabold bg-indigo-600 text-white">0</span>
+          </button>
+
+          <!-- Nút Tính Năng Mới: ⚡ Cẩm nang Chuẩn Marketing SME -->
+          <button
+            id="btnOpenSmeGuideModal"
+            type="button"
+            title="Xem Quy trình 03 Bước Tự Tối Ưu Website & Mẫu Quảng Cáo cho Doanh nghiệp SME"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-extrabold border transition shadow-sm bg-gradient-to-r from-indigo-50 via-purple-50 to-emerald-50 border-indigo-300 text-indigo-900 hover:border-indigo-500 hover:shadow-md"
+          >
+            <i data-lucide="zap" class="w-4 h-4 text-amber-500 fill-amber-400"></i>
+            <span>⚡ Cẩm nang Chuẩn Marketing SME</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- FLOATING RIGHT STEPPER (CĂN SÁT MÉP right-2) -->
+    <aside id="floatingSceneNav" class="hidden xl:flex fixed right-2 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-2 p-1.5 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-lg">
+      <div id="scrollPercentBadge" class="text-[10px] font-mono font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded-md border border-indigo-200">
+        0%
+      </div>
+      <div class="w-0.5 h-2 bg-slate-200"></div>
+      <button type="button" data-scroll-target="scene-01" class="scene-step-btn active-step group relative w-8 h-8 rounded-xl font-mono text-xs font-extrabold flex items-center justify-center transition">
+        <span>01</span>
+        <span class="scene-tooltip">Mục 01: Công cụ Kiểm tra &amp; Nhập liệu</span>
+      </button>
+      <button type="button" data-scroll-target="scene-02" class="scene-step-btn group relative w-8 h-8 rounded-xl font-mono text-xs font-extrabold flex items-center justify-center transition">
+        <span>02</span>
+        <span class="scene-tooltip">Mục 02: Điểm chuẩn &amp; Tư vấn Chiến lược AI</span>
+      </button>
+      <button type="button" data-scroll-target="scene-03" class="scene-step-btn group relative w-8 h-8 rounded-xl font-mono text-xs font-extrabold flex items-center justify-center transition">
+        <span>03</span>
+        <span class="scene-tooltip">Mục 03: Mô phỏng Hiển thị Google &amp; Zalo/FB</span>
+      </button>
+      <button type="button" data-scroll-target="scene-04" class="scene-step-btn group relative w-8 h-8 rounded-xl font-mono text-xs font-extrabold flex items-center justify-center transition">
+        <span>04</span>
+        <span class="scene-tooltip">Mục 04: Mã HTML Tối ưu &amp; 12 Tiêu chí Chi tiết</span>
+      </button>
+      <button type="button" data-scroll-target="scene-05" class="scene-step-btn group relative w-8 h-8 rounded-xl font-mono text-xs font-extrabold flex items-center justify-center transition">
+        <span>05</span>
+        <span class="scene-tooltip">Mục 05: Lịch sử Kiểm tra Website</span>
+      </button>
+    </aside>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 xl:pr-14 py-6 sm:py-8 space-y-7">
+
+      <!-- ================================================================= -->
+      <!-- MỤC BÁO CÁO 01: CÔNG CỤ KIỂM TRA & NHẬP LIỆU                      -->
+      <!-- ================================================================= -->
+      <section id="scene-01" class="bento-card tech-grid-hero rounded-2xl p-5 sm:p-7 relative overflow-hidden scroll-mt-20">
+        <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-emerald-500"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-5 border-b border-slate-200/80">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-white/90 text-indigo-700 border border-indigo-200 shadow-sm mb-2.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>HẠNG MỤC 01 • CÔNG CỤ KIỂM TOÁN WEBSITE DOANH NGHIỆP SME</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Đánh giá &amp; Kiểm toán Hiệu suất Marketing Website
+            </h1>
+            <p class="text-sm text-slate-600 mt-1">
+              Chấm điểm <strong>04 trụ cột cốt lõi (/100đ)</strong>: Tìm kiếm Google (35đ) • Thu hút Mạng xã hội (25đ) • Trải nghiệm Di động (20đ) • Chuyển đổi Khách hàng (20đ).
+            </p>
+          </div>
+
+          <!-- 3 Input Mode Tabs -->
+          <div class="inline-flex p-1.5 rounded-xl bg-white/90 backdrop-blur-sm border border-slate-200/90 shadow-sm self-start lg:self-auto" role="tablist">
+            <button type="button" data-tab="url" class="input-tab-btn active-tab flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition bg-indigo-600 text-white shadow-sm">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+              <span>Nhập địa chỉ Web</span>
+            </button>
+            <button type="button" data-tab="html" class="input-tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900">
+              <i data-lucide="code-2" class="w-4 h-4"></i>
+              <span>Dán mã nguồn HTML</span>
+            </button>
+            <button type="button" data-tab="sample" class="input-tab-btn flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition text-slate-600 hover:text-slate-900">
+              <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+              <span>Website SME mẫu</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Alert Box -->
+        <div id="inputAlertBox" class="relative z-10 hidden mt-4 p-4 rounded-xl border bg-rose-50 border-rose-200 text-rose-800 text-sm">
+          <div class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
+            <div class="flex-1 min-w-0">
+              <h4 id="inputAlertTitle" class="font-bold text-rose-900">Không thể xử lý dữ liệu đầu vào</h4>
+              <p id="inputAlertMessage" class="mt-0.5 text-rose-700 leading-relaxed break-words [overflow-wrap:anywhere]"></p>
+              <div id="inputAlertActions" class="hidden mt-3 flex flex-wrap gap-2">
+                <button type="button" id="btnSwitchToHtmlTab" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-700 text-white hover:bg-rose-800 transition">
+                  <i data-lucide="code-2" class="w-3.5 h-3.5"></i> Chuyển sang Dán mã HTML (Hướng dẫn 3 bước dễ làm)
+                </button>
+                <button type="button" id="btnSwitchToSampleTab" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-rose-800 border border-rose-300 hover:bg-rose-100 transition">
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i> Xem Website SME Mẫu
+                </button>
+              </div>
+            </div>
+            <button type="button" id="btnCloseAlert" class="text-rose-500 hover:text-rose-700 shrink-0">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 1: URL INPUT -->
+        <div id="tabPanel-url" class="input-tab-panel relative z-10 mt-5">
+          <form id="formUrlAudit" class="flex flex-col sm:flex-row gap-3" novalidate>
+            <div class="relative flex-1 min-w-0">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-indigo-500">
+                <i data-lucide="search" class="w-4 h-4"></i>
+              </div>
+              <input
+                id="inputWebsiteUrl"
+                type="text"
+                placeholder="Nhập địa chỉ Website cần kiểm toán (VD: https://bomcongnghiephn.com, ykhoakimyen.com)..."
+                class="w-full pl-11 pr-4 py-3.5 rounded-xl border-2 border-slate-200/90 bg-white/95 text-slate-900 text-sm font-medium focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition shadow-sm"
+              />
+            </div>
+            <button
+              id="btnSubmitUrl"
+              type="submit"
+              class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-sm shadow-lg shadow-indigo-600/25 hover:-translate-y-0.5 transition cursor-pointer shrink-0"
+            >
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Phân tích Website</span>
+            </button>
+          </form>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+              <span>Kết nối 04 tầng tự động vượt tường lửa &amp; đồng bộ điểm số chuẩn xác với mã nguồn HTML.</span>
+            </span>
+            <span>Mẹo: Có thể dán mã HTML ở Tab 2 nếu muốn kiểm toán trang nội bộ.</span>
+          </div>
+        </div>
+
+        <!-- TAB 2: DIRECT HTML PASTE -->
+        <div id="tabPanel-html" class="input-tab-panel relative z-10 hidden mt-5 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 rounded-xl bg-white/90 border border-indigo-200/80 shadow-sm">
+            <div class="flex items-start gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div class="text-xs">
+                <p class="font-bold text-slate-900">Bước 1: Mở trang web</p>
+                <p class="text-slate-600 mt-0.5">Mở trang web doanh nghiệp cần kiểm toán trên trình duyệt.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-purple-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div class="text-xs">
+                <p class="font-bold text-slate-900">Bước 2: Mở mã nguồn trang</p>
+                <p class="text-slate-600 mt-0.5">Nhấn <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono font-bold text-indigo-700">Ctrl + U</kbd> (Windows) hoặc <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono font-bold text-indigo-700">Cmd + Option + U</kbd> (Mac).</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div class="text-xs">
+                <p class="font-bold text-slate-900">Bước 3: Copy &amp; Dán vào ô dưới</p>
+                <p class="text-slate-600 mt-0.5">Nhấn <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono font-bold">Ctrl + A</kbd> $\rightarrow$ <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono font-bold">Ctrl + C</kbd> và dán vào khung dưới.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label for="inputRawHtml" class="text-xs font-bold uppercase tracking-wider text-slate-700">
+              Dán toàn bộ mã HTML trang web vào đây:
+            </label>
+            <input
+              id="inputHtmlContextUrl"
+              type="text"
+              placeholder="Tên miền hiển thị (Tùy chọn, tự nhận diện qua canonical/og:url)"
+              class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-xs w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <textarea
+            id="inputRawHtml"
+            rows="6"
+            placeholder="<!DOCTYPE html>&#10;<html lang=&quot;vi&quot;>&#10;<head>&#10;  <title>Tiêu đề trang web...</title>&#10;..."
+            class="w-full p-3.5 rounded-xl border border-slate-300 font-mono text-xs text-slate-800 bg-white/95 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          ></textarea>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <span class="text-xs text-slate-600 flex items-center gap-1.5">
+              <i data-lucide="cpu" class="w-4 h-4 text-indigo-600 shrink-0"></i>
+              Trích xuất ngữ cảnh 4.000 – 6.000 Tokens (Menu, Tiêu đề, Nội dung dịch vụ, CTA) cho JyabinAI phân tích sâu.
+            </span>
+            <button
+              id="btnSubmitHtml"
+              type="button"
+              class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm shadow-md shadow-indigo-600/20 transition"
+            >
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>Chấm điểm mã HTML</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: 03 MẪU WEBSITE DOANH NGHIỆP NHỎ (SME) THỰC TẾ -->
+        <div id="tabPanel-sample" class="input-tab-panel relative z-10 hidden mt-5">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Mẫu 1: https://bomcongnghiephn.com/ (~78/100đ) -->
+            <div class="p-4 rounded-xl border-2 border-amber-200 bg-white/95 hover:shadow-lg hover:-translate-y-0.5 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-500 text-white">Mẫu 1 • SME Điển Hình</span>
+                  <span class="font-mono font-extrabold text-amber-700 text-sm">78/100đ</span>
+                </div>
+                <h3 class="font-bold text-slate-900 text-sm">Máy Bơm Công Nghiệp Hà Nội</h3>
+                <a href="https://bomcongnghiephn.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 hover:underline mb-1.5">
+                  <span>https://bomcongnghiephn.com/</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  <strong>Web SME làm xong bỏ đó:</strong> Có giao diện cơ bản và SĐT liên hệ, nhưng tiêu đề chỉ để <em>"Trang chủ"</em>, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> quan trọng cho SEO và chưa khai báo ảnh <code class="font-mono">og:image</code>.
+                </p>
+              </div>
+              <button
+                type="button"
+                data-sample-id="sme_bomhn"
+                class="btn-load-sample mt-4 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm transition"
+              >
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                <span>Kiểm toán bomcongnghiephn.com (78đ)</span>
+              </button>
+            </div>
+
+            <!-- Mẫu 2: https://www.ykhoakimyen.com (~90/100đ) -->
+            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-white/95 hover:shadow-lg hover:-translate-y-0.5 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-600 text-white">Mẫu 2 • SME Chuẩn Marketing</span>
+                  <span class="font-mono font-extrabold text-emerald-700 text-sm">90/100đ</span>
+                </div>
+                <h3 class="font-bold text-slate-900 text-sm">Dụng Cụ Y Khoa Kim Yến</h3>
+                <a href="https://www.ykhoakimyen.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-700 hover:underline mb-1.5">
+                  <span>https://www.ykhoakimyen.com</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  <strong>Web SME tối ưu tốt 4 trụ cột:</strong> Tiêu đề &amp; mô tả chuẩn SEO, có ảnh đại diện chia sẻ Zalo/Facebook, tương thích di động và tích hợp Hotline/Form đặt hàng rõ ràng.
+                </p>
+              </div>
+              <button
+                type="button"
+                data-sample-id="sme_kimyen"
+                class="btn-load-sample mt-4 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition"
+              >
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                <span>Kiểm toán ykhoakimyen.com (90đ)</span>
+              </button>
+            </div>
+
+            <!-- Mẫu 3: https://maybomviet.com/ (~52/100đ) -->
+            <div class="p-4 rounded-xl border-2 border-rose-200 bg-white/95 hover:shadow-lg hover:-translate-y-0.5 transition flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-rose-600 text-white">Mẫu 3 • SME Thiếu Chăm Sóc</span>
+                  <span class="font-mono font-extrabold text-rose-700 text-sm">52/100đ</span>
+                </div>
+                <h3 class="font-bold text-slate-900 text-sm">Thương Hiệu Máy Bơm Việt</h3>
+                <a href="https://maybomviet.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 hover:underline mb-1.5">
+                  <span>https://maybomviet.com/</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  <strong>Web SME làm từ lâu thiếu chăm sóc:</strong> Thiếu thẻ <code class="font-mono">viewport</code> gây khó đọc trên điện thoại, tiêu đề sơ sài, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> và chưa cài đặt Open Graph.
+                </p>
+              </div>
+              <button
+                type="button"
+                data-sample-id="sme_maybomviet"
+                class="btn-load-sample mt-4 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm transition"
+              >
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                <span>Kiểm toán maybomviet.com (52đ)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thanh dẫn hướng 5 Hạng mục Báo cáo Kiểm toán Marketing -->
+        <div class="relative z-10 mt-6 pt-4 border-t border-indigo-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-slate-600 font-medium">
+            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+            <span>Cuộn chuột xuống để xem chi tiết <strong>5 Hạng mục Báo cáo Kiểm toán Marketing</strong></span>
+          </div>
+          <a href="#scene-02" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold border border-indigo-200 transition">
+            <span>Xem kết quả kiểm toán</span>
+            <i data-lucide="arrow-down" class="w-3.5 h-3.5 animate-bounce"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE 4-STEP SCANNER LOADER -->
+      <section id="loadingSection" class="hidden bento-card rounded-2xl p-8 max-w-3xl mx-auto">
+        <div class="flex items-center gap-4 pb-5 border-b border-slate-200">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+            <i data-lucide="loader-2" class="w-7 h-7 animate-spin"></i>
+          </div>
+          <div>
+            <h3 id="loadingTitle" class="text-base sm:text-lg font-extrabold text-slate-900">Đang kiểm toán cấu trúc &amp; hiệu suất Marketing...</h3>
+            <p id="loadingSubtitle" class="text-xs sm:text-sm text-slate-500 mt-0.5">Hệ thống đang xử lý dữ liệu qua 4 bước tiêu chuẩn</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 text-xs font-semibold">
+          <div id="scanStep1" class="scan-step-item flex items-center gap-2.5 p-3 rounded-xl border border-indigo-200 bg-indigo-50/70 text-indigo-900">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+            <span>1. Kết nối &amp; Tải cấu trúc DOM trang web</span>
+          </div>
+          <div id="scanStep2" class="scan-step-item flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-600">
+            <i data-lucide="circle-dot" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+            <span>2. Chấm điểm 12 tiêu chí thuộc 4 trụ cột</span>
+          </div>
+          <div id="scanStep3" class="scan-step-item flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-600">
+            <i data-lucide="circle-dot" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+            <span>3. Dựng mô phỏng Google Search &amp; Zalo Card</span>
+          </div>
+          <div id="scanStep4" class="scan-step-item flex items-center gap-2.5 p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-600">
+            <i data-lucide="circle-dot" class="w-4 h-4 text-indigo-500 shrink-0"></i>
+            <span>4. JyabinAI tổng hợp chiến lược tăng trưởng</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD RESULTS CONTAINER -->
+      <div id="dashboardContainer" class="space-y-7">
+
+        <!-- TOP BAR: TARGET INFO & EXPORT BUTTONS -->
+        <div class="bento-card rounded-2xl p-4 sm:px-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-l-4 border-l-indigo-600">
+          <div class="space-y-1 min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2 min-w-0">
+              <span id="auditSourceBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 shrink-0">
+                Kiểm toán Website
+              </span>
+              <h2 id="auditedUrlDisplay" class="font-mono font-bold text-sm sm:text-base text-slate-900 break-all">
+                https://bomcongnghiephn.com/
+              </h2>
+              <a
+                id="btnVisitTargetSite"
+                href="https://bomcongnghiephn.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-slate-100 hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 transition shrink-0"
+              >
+                <span>Mở trang thực tế</span>
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+            </div>
+            <p class="text-xs text-slate-500 flex flex-wrap items-center gap-3">
+              <span class="inline-flex items-center gap-1">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <span id="auditedTimeDisplay">Vừa xong</span>
+              </span>
+              <span class="inline-flex items-center gap-1">
+                <i data-lucide="check-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+                <span id="auditedSummaryCounts">8 Đạt chuẩn • 4 Khá/Cảnh báo • 0 Chưa đạt</span>
+              </span>
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              id="btnExportPdf"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-bold text-xs shadow-sm transition"
+              title="Xuất Báo cáo đồ họa chuẩn A4 (.PDF) không bị chặn popup"
+            >
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span>Xuất Báo Cáo (.PDF)</span>
+            </button>
+            <button
+              id="btnDownloadDoc"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition"
+              title="Tải báo cáo định dạng Microsoft Word (.doc)"
+            >
+              <i data-lucide="file-down" class="w-4 h-4"></i>
+              <span>Tải Báo Cáo (.DOC)</span>
+            </button>
+            <button
+              id="btnViewRawReportModal"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition"
+            >
+              <i data-lucide="eye" class="w-4 h-4 text-slate-600"></i>
+              <span class="hidden sm:inline">Xem bản Text</span>
+            </button>
+            <button
+              id="btnCopyReport"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition"
+            >
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>Copy Báo Cáo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- =============================================================== -->
+        <!-- MỤC BÁO CÁO 02: ĐIỂM CHUẨN & TƯ VẤN CHIẾN LƯỢC AI               -->
+        <!-- =============================================================== -->
+        <section id="scene-02" class="grid grid-cols-1 lg:grid-cols-12 gap-6 scroll-mt-20">
+
+          <!-- CỘT TRÁI (5 COLS) -->
+          <div class="lg:col-span-5 bento-card rounded-2xl p-6 flex flex-col justify-between min-w-0 space-y-5">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                  <i data-lucide="gauge" class="w-5 h-5 text-indigo-600 shrink-0"></i>
+                  <span>Điểm Sức Khỏe Marketing</span>
+                </h3>
+                <span id="overallGradeBadge" class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-amber-100 text-amber-800">
+                  Khá • Cần Tối Ưu Thêm
+                </span>
+              </div>
+
+              <!-- Vòng tròn điểm số Count-Up -->
+              <div class="flex flex-col items-center justify-center">
+                <div class="relative w-44 h-44 flex items-center justify-center">
+                  <svg class="w-full h-full" viewBox="0 0 160 160">
+                    <circle cx="80" cy="80" r="66" fill="none" stroke="#e2e8f0" stroke-width="14"></circle>
+                    <circle
+                      id="scoreGaugeArc"
+                      class="gauge-circle"
+                      cx="80"
+                      cy="80"
+                      r="66"
+                      fill="none"
+                      stroke="#f59e0b"
+                      stroke-width="14"
+                      stroke-linecap="round"
+                      stroke-dasharray="414.69"
+                      stroke-dashoffset="414.69"
+                    ></circle>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                    <span id="overallScoreValue" class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">78</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mt-0.5">/ 100 ĐIỂM</span>
+                  </div>
+                </div>
+
+                <!-- Huy hiệu So sánh điểm lịch sử -->
+                <div id="historyDeltaBadge" class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                  <span>● Lần kiểm toán đầu tiên của tên miền này</span>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-slate-600 mt-2.5">
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 0–54: Yếu</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 55–79: Khá</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 80–100: Tốt</span>
+                </div>
+              </div>
+
+              <!-- 3 Ô Thống kê ngang -->
+              <div class="grid grid-cols-3 gap-2.5 mt-4">
+                <div class="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-center">
+                  <div id="kpiBoxPass" class="text-lg font-extrabold text-emerald-700">0</div>
+                  <div class="text-[11px] font-bold text-emerald-800">✔ Đạt chuẩn</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200 text-center">
+                  <div id="kpiBoxWarn" class="text-lg font-extrabold text-amber-700">0</div>
+                  <div class="text-[11px] font-bold text-amber-800">◐ Khá / Cảnh báo</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-rose-50/80 border border-rose-200 text-center">
+                  <div id="kpiBoxFail" class="text-lg font-extrabold text-rose-700">0</div>
+                  <div class="text-[11px] font-bold text-rose-800">✖ Chưa đạt</div>
+                </div>
+              </div>
+
+              <!-- Khung Chẩn đoán Sẵn sàng Chạy Quảng cáo -->
+              <div class="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 space-y-2">
+                <div class="flex items-center justify-between text-xs font-extrabold text-slate-800">
+                  <span class="flex items-center gap-1.5">
+                    <i data-lucide="megaphone" class="w-4 h-4 text-indigo-600"></i>
+                    <span>Chẩn đoán Sẵn sàng Chạy Quảng cáo</span>
+                  </span>
+                  <span class="text-[10px] font-mono uppercase text-slate-500">Ad-Readiness</span>
+                </div>
+                <div id="adReadinessContainer" class="grid grid-cols-1 gap-1.5 text-xs"></div>
+              </div>
+            </div>
+
+            <!-- 4 Thanh Tiến độ Trụ cột -->
+            <div id="pillarsProgressContainer" class="pt-4 border-t border-slate-200 space-y-3"></div>
+          </div>
+
+          <!-- CỘT PHẢI (7 COLS): TRỢ LÝ AI NHẬN XÉT & TƯ VẤN TĂNG TRƯỞNG -->
+          <div class="lg:col-span-7 bento-card gradient-border-glow rounded-2xl p-6 flex flex-col justify-between min-w-0">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-slate-200">
+                <div class="flex items-start gap-3 min-w-0 flex-1">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-sm mt-0.5">
+                    <i data-lucide="bot" class="w-5 h-5"></i>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="font-extrabold text-slate-900 text-base sm:text-lg leading-snug break-words">
+                      Trợ Lý AI Phân Tích &amp; Tư Vấn Tăng Trưởng
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-500 leading-relaxed break-words mt-0.5">
+                      Đánh giá chuyên sâu theo góc nhìn Kinh doanh, Quảng cáo &amp; Tỷ lệ chốt đơn
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Nhãn chế độ AI (Tự động đổi theo isMock === false / true) -->
+                <div id="aiModeBadgeContainer" class="shrink-0">
+                  <span id="aiModeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                    <span id="aiModeBadgeText">✨ Phân tích chuyên sâu bởi JyabinAI</span>
+                  </span>
+                </div>
+              </div>
+
+              <div id="aiErrorNotice" class="hidden mt-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 break-words [overflow-wrap:anywhere]">
+                <span id="aiErrorNoticeText"></span>
+              </div>
+
+              <div id="aiLoadingSkeleton" class="hidden py-14 text-center space-y-3">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold">
+                  <i data-lucide="sparkles" class="w-4 h-4 animate-spin"></i>
+                  <span id="aiLoadingModelText">JyabinAI đang phân tích sâu ngữ cảnh trang web...</span>
+                </div>
+                <p class="text-xs text-slate-400">Đang tổng hợp 03 lợi thế cạnh tranh &amp; 03 giải pháp tăng trưởng khách hàng</p>
+              </div>
+
+              <!-- Grid 2 cột Nhận xét AI -->
+              <div id="aiContentGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 min-w-0">
+                <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 min-w-0 overflow-hidden">
+                  <div class="flex items-center gap-2 text-emerald-900 font-extrabold text-sm mb-3 min-w-0">
+                    <i data-lucide="trending-up" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span id="aiStrengthsHeading" class="break-words [overflow-wrap:anywhere]">03 Điểm sáng Marketing đã có nền tảng</span>
+                  </div>
+                  <ul id="aiStrengthsList" class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed min-w-0"></ul>
+                </div>
+
+                <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200/80 min-w-0 overflow-hidden">
+                  <div class="flex items-center gap-2 text-rose-900 font-extrabold text-sm mb-3 min-w-0">
+                    <i data-lucide="wrench" class="w-4 h-4 text-rose-600 shrink-0"></i>
+                    <span id="aiImprovementsHeading" class="break-words [overflow-wrap:anywhere]">03 Hạng mục cần bổ sung để tăng khách</span>
+                  </div>
+                  <ul id="aiImprovementsList" class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed min-w-0"></ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+              <span id="aiFooterNote" class="min-w-0 break-words">Đã phân tích sâu ngữ cảnh trang chủ &amp; danh mục dịch vụ bởi JyabinAI.</span>
+              <div class="flex items-center gap-3 shrink-0">
+                <button
+                  id="btnOpenSmeGuideFromCard"
+                  type="button"
+                  class="inline-flex items-center gap-1 font-bold text-emerald-600 hover:text-emerald-700 transition"
+                >
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                  <span>Cẩm nang &amp; Mẫu Ads</span>
+                </button>
+                <button
+                  id="btnOpenAiChatFromCard"
+                  type="button"
+                  class="inline-flex items-center gap-1 font-bold text-purple-600 hover:text-purple-700 transition"
+                >
+                  <i data-lucide="message-square-plus" class="w-3.5 h-3.5"></i>
+                  <span>Hỏi sâu hơn</span>
+                </button>
+                <button
+                  id="btnRegenerateAi"
+                  type="button"
+                  class="inline-flex items-center gap-1 font-bold text-indigo-600 hover:text-indigo-700 transition"
+                >
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                  <span>Làm mới AI</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- MỤC BÁO CÁO 03: MÔ PHỎNG HIỂN THỊ GOOGLE & ZALO/FB               -->
+        <!-- =============================================================== -->
+        <section id="scene-03" class="bento-card rounded-2xl p-6 scroll-mt-20">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-slate-200">
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-extrabold uppercase bg-gradient-to-r from-indigo-600 to-purple-600 text-white">Hạng mục 03 • Live Preview</span>
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Mô Phỏng Hiển Thị Thực Tế Trên Google &amp; Mạng Xã Hội</h3>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Xem trước hình ảnh thương hiệu của doanh nghiệp khi khách hàng tìm kiếm trên Google hoặc khi gửi link qua Zalo, Facebook.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-5">
+            <!-- Google Search Preview -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-blue-50/40 border border-blue-200/80 min-w-0 overflow-hidden">
+              <div class="min-w-0">
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-blue-800">
+                    <i data-lucide="search" class="w-4 h-4 text-blue-600"></i>
+                    Mô phỏng Kết quả Tìm kiếm Google
+                  </span>
+                  <span id="serpStatusBadge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                    Chuẩn hiển thị
+                  </span>
+                </div>
+
+                <div class="p-4 sm:p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-1.5 min-w-0 overflow-hidden">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0">
+                      <img id="serpFaviconImg" src="" alt="Favicon" referrerpolicy="no-referrer" class="w-4 h-4 object-contain hidden" />
+                      <i id="serpFaviconFallback" data-lucide="globe" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <div id="serpSiteName" class="text-xs font-semibold text-slate-800 truncate">bomcongnghiephn.com</div>
+                      <div id="serpBreadcrumb" class="text-[11px] text-slate-500 truncate">https://bomcongnghiephn.com/</div>
+                    </div>
+                  </div>
+
+                  <h4 id="serpTitle" class="text-lg sm:text-[19px] font-medium text-[#1a0dab] hover:underline cursor-pointer leading-snug pt-1 break-words [overflow-wrap:anywhere]">
+                    Tiêu đề trang web trên Google
+                  </h4>
+
+                  <p id="serpDescription" class="text-xs sm:text-[13px] text-[#4d5156] leading-relaxed break-words [overflow-wrap:anywhere]">
+                    Mô tả trang web trên Google...
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-blue-200/60 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
+                <span id="serpTitleCounter">Độ dài Tiêu đề: <strong>0</strong>/70 ký tự</span>
+                <span id="serpDescCounter">Độ dài Mô tả: <strong>0</strong>/170 ký tự</span>
+              </div>
+            </div>
+
+            <!-- Facebook / Zalo Share Card Preview -->
+            <div class="flex flex-col justify-between p-5 rounded-2xl bg-purple-50/40 border border-purple-200/80 min-w-0 overflow-hidden">
+              <div class="min-w-0">
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-purple-900">
+                    <i data-lucide="share-2" class="w-4 h-4 text-purple-600"></i>
+                    Mô phỏng Thẻ Chia sẻ Facebook / Zalo
+                  </span>
+                  <span id="socialStatusBadge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                    Đầy đủ Open Graph
+                  </span>
+                </div>
+
+                <div class="rounded-xl overflow-hidden bg-white border border-slate-300 shadow-sm min-w-0">
+                  <div class="relative h-48 sm:h-52 w-full bg-slate-100 border-b border-slate-200 flex items-center justify-center overflow-hidden">
+                    <img id="socialPreviewImg" src="" alt="Social Preview" referrerpolicy="no-referrer" class="w-full h-full object-cover hidden" />
+                    <div id="socialMissingImageAlert" class="p-6 text-center max-w-md mx-auto">
+                      <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-2.5">
+                        <i data-lucide="image-off" class="w-6 h-6"></i>
+                      </div>
+                      <p class="font-extrabold text-xs sm:text-sm text-rose-900">
+                        CẢNH BÁO: Chưa cài đặt ảnh bìa chia sẻ (og:image)
+                      </p>
+                      <p class="text-xs text-slate-600 mt-1">
+                        Khi gửi link qua Zalo hoặc đăng Facebook, bài viết bị mất khung ảnh đại diện lớn, làm giảm tới <strong>70% tỷ lệ khách hàng bấm vào xem</strong>!
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="p-3.5 bg-[#f0f2f5] space-y-1 min-w-0 overflow-hidden">
+                    <div id="socialDomain" class="text-[11px] font-semibold uppercase tracking-wider text-slate-500 truncate">
+                      BOMCONGNGHIEPHN.COM
+                    </div>
+                    <h4 id="socialTitle" class="font-bold text-sm sm:text-base text-slate-900 line-clamp-1 break-words [overflow-wrap:anywhere]">
+                      Tiêu đề chia sẻ mạng xã hội
+                    </h4>
+                    <p id="socialDescription" class="text-xs text-slate-600 line-clamp-2 break-words [overflow-wrap:anywhere]">
+                      Mô tả ngắn thu hút khách hàng trên mạng xã hội...
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-purple-200/60 flex items-center justify-between text-xs text-slate-600">
+                <span>Hiển thị tự động từ cấu hình Open Graph (<code class="font-mono">og:title</code>, <code class="font-mono">og:description</code>, <code class="font-mono">og:image</code>)</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- MỤC BÁO CÁO 04: MÃ HTML TỐI ƯU & 12 TIÊU CHÍ CHI TIẾT            -->
+        <!-- =============================================================== -->
+        <section id="scene-04" class="bento-card rounded-2xl p-6 space-y-6 scroll-mt-20">
+          <!-- Hộp Tạo Mã HTML <head> Vá Lỗi Tự Động (Copy 1-Click) -->
+          <div id="autoFixHeadPatchWrapper" class="p-5 rounded-2xl bg-gradient-to-r from-indigo-950 via-slate-900 to-purple-950 text-white shadow-lg border border-indigo-500/30">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+              <div class="space-y-0.5">
+                <div class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-amber-400">
+                  <i data-lucide="wand-2" class="w-4 h-4"></i>
+                  <span>Hạng mục 04 • Giải Pháp Kỹ Thuật 1-Click</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-extrabold text-white">
+                  ⚡ Cụm Mã HTML &lt;head&gt; Vá Lỗi Tự Động (Đã Tối Ưu Cho Website Này)
+                </h3>
+                <p class="text-xs text-indigo-200">
+                  Sao chép toàn bộ cụm thẻ chuẩn SEO &amp; Open Graph dưới đây gửi cho kỹ thuật viên dán vào phần <code class="font-mono text-amber-300">&lt;head&gt;</code> của trang web.
+                </p>
+              </div>
+              <button
+                id="btnCopyMasterHeadPatch"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs shadow-md transition shrink-0"
+              >
+                <i data-lucide="copy-check" class="w-4 h-4"></i>
+                <span>Copy cụm mã &lt;head&gt;</span>
+              </button>
+            </div>
+            <pre id="masterHeadPatchCode" class="mt-3 p-3.5 rounded-xl bg-black/40 border border-white/10 font-mono text-xs text-emerald-300 overflow-x-auto whitespace-pre-wrap break-words [overflow-wrap:anywhere]"></pre>
+          </div>
+
+          <!-- Header Checklist & Bộ lọc -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+            <div>
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                <i data-lucide="list-checks" class="w-5 h-5 text-indigo-600"></i>
+                <span>Checklist Kiểm Toán Chi Tiết 12 Hạng Mục &amp; Phân Loại Ưu Tiên Kinh Doanh</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Mỗi hạng mục chưa đạt đều đi kèm <strong>Nhãn ưu tiên kinh doanh</strong> và <strong>Mã mẫu gợi ý từ JyabinAI</strong> để sao chép dùng ngay.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-auto">
+              <button type="button" data-filter="all" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-white text-slate-900 shadow-sm">
+                Tất cả (<span id="countFilterAll">12</span>)
+              </button>
+              <button type="button" data-filter="pass" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-emerald-700 hover:bg-white/60">
+                Đạt chuẩn (<span id="countFilterPass">0</span>)
+              </button>
+              <button type="button" data-filter="warn" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-amber-700 hover:bg-white/60">
+                Khá / Cảnh báo (<span id="countFilterWarn">0</span>)
+              </button>
+              <button type="button" data-filter="fail" class="checklist-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold transition text-rose-700 hover:bg-white/60">
+                Chưa đạt (<span id="countFilterFail">0</span>)
+              </button>
+            </div>
+          </div>
+
+          <div id="checklistItemsContainer" class="space-y-6"></div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- MỤC BÁO CÁO 05: LỊCH SỬ KIỂM TRA WEBSITE                         -->
+        <!-- =============================================================== -->
+        <section id="scene-05" class="bento-card rounded-2xl p-6 scroll-mt-20">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-extrabold uppercase bg-slate-800 text-white">Hạng mục 05</span>
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Lịch Sử Kiểm Toán &amp; Đối Chiếu Tiến Độ Tối Ưu</h3>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Lưu trữ tự động trên trình duyệt (<code class="font-mono">localStorage</code>). Bấm vào bất kỳ bản ghi nào để nạp lại toàn bộ báo cáo.
+              </p>
+            </div>
+            <button
+              id="btnClearAllHistoryInline"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition self-start sm:self-auto"
+            >
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+              <span>Xóa toàn bộ lịch sử</span>
+            </button>
+          </div>
+
+          <div id="inlineHistoryGridContainer" class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"></div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 border-t border-slate-200 bg-white py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs sm:text-sm text-slate-600 font-medium">
+        JyabinAI (Vibe-coding - Đề 5) — Nền tảng Đánh giá &amp; Kiểm toán Hiệu suất Marketing Website cho Doanh nghiệp SME • SEO On-page • Social Media • Mobile UX • Conversion
+      </div>
+    </footer>
+
+    <!-- FLOATING CHAT AI BUTTON -->
+    <button
+      id="btnToggleAiChatWidget"
+      type="button"
+      class="fixed bottom-20 right-5 z-40 inline-flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-extrabold text-xs sm:text-sm shadow-2xl shadow-indigo-600/40 border border-white/20 hover:scale-105 transition"
+    >
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <i data-lucide="message-circle-question" class="w-4 h-4"></i>
+      <span>💬 Hỏi thêm JyabinAI về web này</span>
+    </button>
+
+    <!-- CONTEXTUAL AI CHAT WIDGET WINDOW -->
+    <div id="aiChatWidgetWindow" class="fixed bottom-32 right-5 z-50 hidden w-[92vw] sm:w-[410px] bg-white rounded-2xl shadow-2xl border border-indigo-200 overflow-hidden flex-col">
+      <div class="p-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+            <i data-lucide="bot" class="w-4 h-4"></i>
+          </div>
+          <div class="min-w-0">
+            <h4 class="font-extrabold text-xs sm:text-sm">Trợ lý Cố vấn Chiến lược JyabinAI</h4>
+            <p id="chatContextDomainLabel" class="text-[11px] text-indigo-100 truncate">Đang nạp ngữ cảnh website...</p>
+          </div>
+        </div>
+        <button id="btnCloseAiChatWidget" type="button" class="text-white/80 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- 3 Nút câu hỏi gợi ý nhanh -->
+      <div class="p-2.5 bg-indigo-50/70 border-b border-indigo-100 flex flex-wrap gap-1.5">
+        <button type="button" data-quick-ask="Viết lại thẻ Title và Meta Description chuẩn SEO thu hút khách hàng nhất cho website này" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition">
+          ✨ Viết lại Title &amp; Meta Description hút khách
+        </button>
+        <button type="button" data-quick-ask="Làm sao để tăng tỷ lệ khách hàng bấm gọi điện thoại và nhắn Zalo mua hàng trên website này?" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition">
+          📞 Làm sao tăng khách gọi điện/Zalo?
+        </button>
+        <button type="button" data-quick-ask="Gợi ý 5 từ khóa chạy quảng cáo Google Ads và nội dung bài đăng Facebook hiệu quả cho ngành hàng của website này" class="quick-ask-chip px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-600 hover:text-white text-indigo-900 border border-indigo-200 text-[11px] font-bold transition">
+          🎯 Gợi ý 5 từ khóa chạy quảng cáo ngành này
+        </button>
+      </div>
+
+      <div id="aiChatMessagesList" class="p-3.5 h-72 overflow-y-auto space-y-3 text-xs bg-slate-50/60"></div>
+
+      <form id="formAiChat" class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+        <input
+          id="inputAiChatQuestion"
+          type="text"
+          placeholder="Nhập câu hỏi cho JyabinAI..."
+          class="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <button type="submit" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition shrink-0">
+          Gửi
+        </button>
+      </form>
+    </div>
+
+    <!-- BOTTOM STICKY ACTION BAR -->
+    <div class="fixed bottom-0 inset-x-0 z-30 bg-slate-900/95 backdrop-blur-md border-t border-slate-700 text-white py-2.5 px-4 sm:px-6 shadow-2xl">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs">
+        <div class="flex items-center gap-2 min-w-0 truncate">
+          <span class="text-slate-400 hidden sm:inline">Website đang xem:</span>
+          <strong id="stickyBarDomain" class="font-mono text-indigo-300 truncate">https://bomcongnghiephn.com/</strong>
+          <span class="text-slate-500">•</span>
+          <span id="stickyBarScoreBadge" class="inline-flex items-center gap-1 font-extrabold text-amber-400 shrink-0">
+            ● 78/100 (Khá • Cần Tối Ưu Thêm)
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="btnStickyCopy" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-600 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>Copy toàn bộ báo cáo</span>
+          </button>
+          <button id="btnStickyDoc" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold transition">
+            <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+            <span>Tải file .DOC</span>
+          </button>
+          <button id="btnStickyPdf" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold transition">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Xuất Báo Cáo (.PDF)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- MODAL 1: CẨM NANG CHUẨN MARKETING SME (QUY TRÌNH 03 BƯỚC TỰ TỐI ƯU)  -->
+    <!-- =================================================================== -->
+    <div id="modalSmeGuide" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+      <div class="bg-slate-50 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+        <!-- Header Modal -->
+        <div class="flex items-center justify-between p-5 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 text-white">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-300/40 text-amber-300 flex items-center justify-center shrink-0">
+              <i data-lucide="zap" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-extrabold text-base sm:text-lg text-white">Cẩm Nang Tự Tối Ưu Website Chuẩn Marketing Cho Chủ Doanh Nghiệp SME</h3>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-500 text-white">
+                  JyabinAI Action Kit
+                </span>
+              </div>
+              <p id="smeGuideSubtitle" class="text-xs text-indigo-200 mt-0.5">
+                Quy trình 03 bước đơn giản giúp chủ doanh nghiệp nâng cấp website không cần rành lập trình
+              </p>
+            </div>
+          </div>
+          <button type="button" id="btnCloseSmeGuideModal" class="text-white/70 hover:text-white">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Body Modal -->
+        <div class="p-5 overflow-y-auto space-y-5 text-xs sm:text-sm">
+          <!-- Quy trình 03 Bước Tự Tối Ưu Website Dành Cho Chủ Doanh Nghiệp Nhỏ -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl bg-white border-2 border-indigo-200 shadow-sm space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-indigo-600 text-white">BƯỚC 1</span>
+                <i data-lucide="gauge" class="w-5 h-5 text-indigo-600"></i>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-sm">Chẩn đoán Điểm nghẽn qua 4 Trụ cột</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Kiểm tra xem website đang mất điểm ở đâu: khách không tìm thấy trên Google (SEO), gửi link Zalo mất ảnh (Social), vỡ chữ trên điện thoại (Mobile) hay thiếu nút gọi (Conversion).
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white border-2 border-purple-200 shadow-sm space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-purple-600 text-white">BƯỚC 2</span>
+                <i data-lucide="wand-2" class="w-5 h-5 text-purple-600"></i>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-sm">Copy Cụm Mã &lt;head&gt; Tự Động Gửi Kỹ Thuật</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                JyabinAI đã viết sẵn toàn bộ thẻ Tiêu đề, Mô tả và Open Graph chuẩn xác cho ngành hàng của bạn. Chỉ cần nhấn 1 nút Copy và gửi cho người làm web dán vào phần <code class="font-mono">&lt;head&gt;</code>.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white border-2 border-emerald-200 shadow-sm space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-600 text-white">BƯỚC 3</span>
+                <i data-lucide="phone-call" class="w-5 h-5 text-emerald-600"></i>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-sm">Bổ Sung Nút Gọi Hotline / Zalo 1 Chạm</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Gắn liên kết <code class="font-mono">tel:</code> và <code class="font-mono">zalo.me</code> nổi trên màn hình di động kèm biểu mẫu nhận báo giá nhanh để tăng gấp đôi tỷ lệ chốt đơn từ khách truy cập.
+              </p>
+            </div>
+          </div>
+
+          <!-- Bộ Mẫu Quảng Cáo Google Ads & Bài Đăng Zalo/Facebook Viết Sẵn Bởi JyabinAI -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-white border border-blue-200 shadow-sm flex flex-col justify-between space-y-3">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase text-blue-800">
+                    <i data-lucide="search" class="w-4 h-4 text-blue-600"></i>
+                    Mẫu Quảng Cáo Google Search Ads Gợi Ý
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">Chuẩn CTR cao</span>
+                </div>
+                <div id="aiStudioGoogleAdPreview" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 font-sans text-xs"></div>
+              </div>
+              <button
+                type="button"
+                id="btnCopyGoogleAdKit"
+                class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition"
+              >
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copy mẫu quảng cáo Google Ads</span>
+              </button>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-white border border-purple-200 shadow-sm flex flex-col justify-between space-y-3">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase text-purple-900">
+                    <i data-lucide="share-2" class="w-4 h-4 text-purple-600"></i>
+                    Mẫu Bài Đăng Facebook &amp; Tin Nhắn Zalo
+                  </span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">Tối ưu Chốt đơn</span>
+                </div>
+                <pre id="aiStudioSocialPostPreview" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 font-sans text-xs text-slate-700 whitespace-pre-wrap leading-relaxed break-words [overflow-wrap:anywhere]"></pre>
+              </div>
+              <button
+                type="button"
+                id="btnCopySocialPostKit"
+                class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs transition"
+              >
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copy bài đăng Facebook / Zalo</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Lộ trình Hành động 3 Giai đoạn -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                <i data-lucide="calendar-check-2" class="w-4 h-4 text-emerald-600"></i>
+                <span>Danh Sách Việc Cần Làm Cho Website Đang Kiểm Tra</span>
+              </h4>
+              <span class="text-[11px] text-slate-500 font-semibold">Tổng hợp tự động bởi JyabinAI</span>
+            </div>
+            <div id="aiStudioActionRoadmap" class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs"></div>
+          </div>
+        </div>
+
+        <!-- Footer Modal -->
+        <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between flex-wrap gap-2">
+          <button
+            type="button"
+            id="btnJumpToHeadPatchFromGuide"
+            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm transition"
+          >
+            <i data-lucide="wand-2" class="w-4 h-4"></i>
+            <span>⚡ Cuộn tới Cụm Mã &lt;head&gt; Vá Lỗi Tự Động</span>
+          </button>
+          <button
+            type="button"
+            id="btnCloseSmeGuideBottom"
+            class="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition"
+          >
+            Đóng cửa sổ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2: BẢNG TIÊU CHÍ CHẤM ĐIỂM (/100) DẠNG 4 THẺ MÀU BENTO GRID -->
+    <div id="modalRubric" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+      <div class="bg-slate-50 rounded-2xl max-w-5xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+        <div class="flex items-center justify-between p-5 bg-white border-b border-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-sm">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base sm:text-lg">Hệ Thống Tiêu Chí Chấm Điểm Website Chuẩn Marketing (100 Điểm)</h3>
+              <p class="text-xs text-slate-500">Thiết kế theo 04 Trụ cột Marketing thực chiến &amp; Phổ điểm 4 mức cân bằng cho Doanh nghiệp SME</p>
+            </div>
+          </div>
+          <button type="button" id="btnCloseRubricModal" class="text-slate-400 hover:text-slate-600">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <div id="rubricTableBodyContainer" class="p-5 overflow-y-auto space-y-5 text-xs sm:text-sm"></div>
+
+        <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between flex-wrap gap-2">
+          <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+            <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">Đạt chuẩn: 100% điểm</span>
+            <span class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-300">Khá: 70–75% điểm</span>
+            <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">Cảnh báo: 40–50% điểm</span>
+            <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-300">Chưa đạt: 0% điểm</span>
+          </div>
+          <button type="button" id="btnCloseRubricModalBottom" class="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition">
+            Đã hiểu &amp; Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 3: XEM BẢN TEXT -->
+    <div id="modalReportPreview" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+      <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[88vh] flex flex-col shadow-2xl border border-slate-200">
+        <div class="flex items-center justify-between p-5 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-check-2" class="w-5 h-5 text-indigo-600"></i>
+            <h3 class="font-extrabold text-slate-900 text-base">Xem Trước Báo Cáo Kiểm Toán Marketing (Unicode Text)</h3>
+          </div>
+          <button type="button" id="btnCloseReportModal" class="text-slate-400 hover:text-slate-600">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <div class="p-5 flex-1 overflow-y-auto">
+          <textarea
+            id="textareaReportOutput"
+            readonly
+            rows="18"
+            class="w-full p-4 rounded-xl bg-slate-900 text-emerald-50 font-mono text-xs leading-relaxed focus:outline-none"
+          ></textarea>
+        </div>
+        <div class="p-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs text-slate-500">Bố cục khung Unicode sắc nét, gửi trực tiếp qua Zalo, Email hoặc xuất PDF/Word.</span>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              id="btnDownloadDocFromModal"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition"
+            >
+              <i data-lucide="file-down" class="w-4 h-4"></i>
+              <span>Tải Báo Cáo (.DOC)</span>
+            </button>
+            <button
+              type="button"
+              id="btnCopyFromModal"
+              class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition"
+            >
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>Sao chép vào Clipboard</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRAWER: LỊCH SỬ KIỂM TRA -->
+    <div id="drawerHistoryOverlay" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm">
+      <div class="fixed inset-y-0 right-0 max-w-md w-full bg-white shadow-2xl border-l border-slate-200 flex flex-col">
+        <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="history" class="w-5 h-5 text-indigo-600"></i>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">Lịch Sử Kiểm Toán Website</h3>
+              <p class="text-xs text-slate-500">Bấm vào từng mục để mở lại báo cáo chi tiết</p>
+            </div>
+          </div>
+          <button type="button" id="btnCloseHistoryDrawer" class="text-slate-400 hover:text-slate-600">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <div id="historyListContainer" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+
+        <div class="p-4 border-t border-slate-200 flex items-center justify-between bg-slate-50">
+          <button
+            type="button"
+            id="btnClearAllHistory"
+            class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-100 transition"
+          >
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+            <span>Xóa toàn bộ lịch sử</span>
+          </button>
+          <button
+            type="button"
+            id="btnCloseHistoryBottom"
+            class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-16 left-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- VÙNG BÁO CÁO IN A4 ĐỒ HỌA (.PDF) NỘI BỘ KHÔNG BỊ CHẶN POPUP          -->
+  <!-- ===================================================================== -->
+  <div id="jyabin-print-report" class="hidden print:block"></div>
+
+  <!-- 4 Modular JS Scripts -->
+  <script src="./js/config-samples.js"></script>
+  <script src="./js/scanner-scorer.js"></script>
+  <script src="./js/ai-engine.js"></script>
+  <script src="./js/ui-controller.js"></script>
+</body>
+</html>
