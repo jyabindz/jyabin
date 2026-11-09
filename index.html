@@ -202,7 +202,7 @@
           </div>
         </div>
 
-        <!-- TAB 1: URL INPUT -->
+        <!-- TAB 1: URL INPUT (KÈM KHUYẾN NGHỊ DÁN MÃ NGUỒN HTML CHÍNH XÁC HƠN) -->
         <div id="tabPanel-url" class="input-tab-panel relative z-10 mt-4 sm:mt-5">
           <form id="formUrlAudit" class="flex flex-col sm:flex-row gap-2.5 sm:gap-3" novalidate>
             <div class="relative flex-1 min-w-0">
@@ -212,7 +212,7 @@
               <input
                 id="inputWebsiteUrl"
                 type="text"
-                placeholder="Nhập địa chỉ Website (VD: https://bomcongnghiephn.com)..."
+                placeholder="Nhập địa chỉ Website (VD: https://maybomviet.com, ykhoakimyen.com)..."
                 class="w-full pl-10 pr-4 py-3 sm:py-3.5 rounded-xl border-2 border-slate-200/90 bg-white/95 text-slate-900 text-base sm:text-sm font-medium focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition shadow-sm"
               />
             </div>
@@ -225,11 +225,23 @@
               <span>Phân tích Website</span>
             </button>
           </form>
-          <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
-            <span class="flex items-center gap-1.5">
-              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
-              <span>Kết nối 04 tầng tự động vượt tường lửa &amp; đồng bộ điểm số chuẩn xác với mã nguồn HTML.</span>
-            </span>
+
+          <!-- Hộp Khuyến nghị Dán mã nguồn HTML để có kết quả chính xác tuyệt đối -->
+          <div class="mt-3 p-3 rounded-xl bg-indigo-50/90 border border-indigo-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-indigo-950">
+            <div class="flex items-start sm:items-center gap-2">
+              <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5 sm:mt-0"></i>
+              <span>
+                <strong>Khuyến nghị chuyên môn:</strong> Một số website bật tường lửa chặn quét từ xa. Sử dụng chế độ <strong>"Dán mã nguồn HTML" (Ctrl + U)</strong> sẽ giúp phân tích sâu toàn bộ cấu trúc DOM và cho kết quả chính xác tuyệt đối 100%!
+              </span>
+            </div>
+            <button
+              type="button"
+              onclick="document.querySelector('[data-tab=&quot;html&quot;]')?.click()"
+              class="inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[11px] transition shrink-0 whitespace-nowrap"
+            >
+              <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+              <span>Chuyển sang Dán HTML ngay</span>
+            </button>
           </div>
         </div>
 
@@ -295,20 +307,20 @@
         <!-- TAB 3: 03 MẪU WEBSITE DOANH NGHIỆP NHỎ (SME) THỰC TẾ -->
         <div id="tabPanel-sample" class="input-tab-panel relative z-10 hidden mt-4 sm:mt-5">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-            <!-- Mẫu 1 -->
+            <!-- Mẫu 1: https://maybomviet.com/ (60/100đ) -->
             <div class="p-4 rounded-xl border-2 border-amber-200 bg-white/95 hover:shadow-lg transition flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-500 text-white">Mẫu 1 • SME Điển Hình</span>
-                  <span class="font-mono font-extrabold text-amber-700 text-sm">78/100đ</span>
+                  <span class="font-mono font-extrabold text-amber-700 text-sm">60/100đ</span>
                 </div>
-                <h3 class="font-bold text-slate-900 text-sm">Máy Bơm Công Nghiệp Hà Nội</h3>
-                <a href="https://bomcongnghiephn.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 hover:underline mb-1.5 break-all">
-                  <span>https://bomcongnghiephn.com/</span>
+                <h3 class="font-bold text-slate-900 text-sm">Thương Hiệu Máy Bơm Việt</h3>
+                <a href="https://maybomviet.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-amber-700 hover:underline mb-1.5 break-all">
+                  <span>https://maybomviet.com/</span>
                   <i data-lucide="external-link" class="w-3 h-3 shrink-0"></i>
                 </a>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  <strong>Web SME làm xong bỏ đó:</strong> Có giao diện cơ bản và SĐT liên hệ, nhưng tiêu đề chỉ để <em>"Trang chủ"</em>, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> và chưa khai báo ảnh <code class="font-mono">og:image</code>.
+                  <strong>Web SME điển hình làm xong để đó:</strong> Có giao diện di động cơ bản và SĐT, nhưng tiêu đề chỉ để <em>"Trang chủ"</em>, quên viết <code class="font-mono">meta description</code>, thiếu thẻ <code class="font-mono">&lt;h2&gt;</code> và thiếu ảnh <code class="font-mono">og:image</code> khi gửi Zalo.
                 </p>
               </div>
               <button
@@ -317,11 +329,11 @@
                 class="btn-load-sample mt-4 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm transition"
               >
                 <i data-lucide="play" class="w-3.5 h-3.5"></i>
-                <span>Kiểm toán bomcongnghiephn.com (78đ)</span>
+                <span>Kiểm toán maybomviet.com (60đ)</span>
               </button>
             </div>
 
-            <!-- Mẫu 2 -->
+            <!-- Mẫu 2: https://www.ykhoakimyen.com (90/100đ) -->
             <div class="p-4 rounded-xl border-2 border-emerald-200 bg-white/95 hover:shadow-lg transition flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-2">
@@ -347,20 +359,20 @@
               </button>
             </div>
 
-            <!-- Mẫu 3 -->
+            <!-- Mẫu 3: https://denpinnhapkhau.vn/ (48/100đ) -->
             <div class="p-4 rounded-xl border-2 border-rose-200 bg-white/95 hover:shadow-lg transition flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-rose-600 text-white">Mẫu 3 • SME Thiếu Chăm Sóc</span>
-                  <span class="font-mono font-extrabold text-rose-700 text-sm">52/100đ</span>
+                  <span class="font-mono font-extrabold text-rose-700 text-sm">48/100đ</span>
                 </div>
-                <h3 class="font-bold text-slate-900 text-sm">Thương Hiệu Máy Bơm Việt</h3>
-                <a href="https://maybomviet.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 hover:underline mb-1.5 break-all">
-                  <span>https://maybomviet.com/</span>
+                <h3 class="font-bold text-slate-900 text-sm">Đèn Pin Nhập Khẩu Siêu Sáng</h3>
+                <a href="https://denpinnhapkhau.vn/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 hover:underline mb-1.5 break-all">
+                  <span>https://denpinnhapkhau.vn/</span>
                   <i data-lucide="external-link" class="w-3 h-3 shrink-0"></i>
                 </a>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  <strong>Web SME làm từ lâu thiếu chăm sóc:</strong> Thiếu thẻ <code class="font-mono">viewport</code> gây khó đọc trên điện thoại, tiêu đề sơ sài, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> và chưa cài đặt Open Graph.
+                  <strong>Web SME thiếu chăm sóc:</strong> Cấu hình <code class="font-mono">viewport</code> di động chưa chuẩn, tiêu đề sơ sài, mô tả quá ngắn, thiếu thẻ <code class="font-mono">&lt;h1&gt;</code> và mất trắng thẻ chia sẻ mạng xã hội.
                 </p>
               </div>
               <button
@@ -369,7 +381,7 @@
                 class="btn-load-sample mt-4 w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm transition"
               >
                 <i data-lucide="play" class="w-3.5 h-3.5"></i>
-                <span>Kiểm toán maybomviet.com (52đ)</span>
+                <span>Kiểm toán denpinnhapkhau.vn (48đ)</span>
               </button>
             </div>
           </div>
