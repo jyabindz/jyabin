@@ -13,9 +13,10 @@
 ### 🔹 Tình huống 1: Thiết kế thuật toán chấm điểm `/100` công bằng cho SME & Mô phỏng Live Preview
 - **Prompt định hướng của đội:** *"Xây dựng thuật toán DOMParser chấm điểm /100 theo 4 trụ cột Marketing. Thay vì chỉ chấm Đạt/Trượt cứng nhắc khiến các web SME bị điểm quá thấp, hãy thiết kế thang điểm 4 mức linh hoạt (Đạt 100%, Khá 75%, Cảnh báo 40-50%, Lỗi 0%) và dựng khung Live Preview mô phỏng kết quả tìm kiếm Google & thẻ chia sẻ Zalo/Facebook."*
 - **Kiểm tra & Phản biện của đội:** Phiên bản đầu tiên AI phạt mất 50% điểm chỉ vì thẻ `<title>` dài 68 ký tự. Đội đã phản biện và yêu cầu nới biên độ chuẩn lên `25–70 ký tự` (10đ) và `71–95 ký tự` vẫn đạt mức Khá (7.5đ) để phản ánh đúng thực tế hiển thị của Google hiện nay.
-- *(📸 Chèn Ảnh minh chứng 1: Đoạn hội thoại thiết kế bảng trọng số 4 trụ cột & giao diện Live Preview)*
+- ![Mô tả ngắn gọn về bức ảnh](./images/minh-chung-th-1.png)
 
 ### 🔹 Tình huống 2: Tối ưu ngân sách Ngữ cảnh 4.000–6.000 Tokens & Ép kiểu JSON Schema
 - **Vấn đề phát hiện khi test:** Nếu chỉ gửi điểm số sang AI, lời nhận xét rất chung chung; nhưng nếu gửi nguyên mã HTML thô (nặng 300KB chứa đầy `<script>`, `<svg>`) sẽ gây tràn giới hạn Token và chậm phản hồi.
 - **Chỉ đạo kỹ thuật của đội cho AI:** *"Xây dựng hàm `buildRichAiPayload` tạo bản sao `doc.body`, xóa sạch `<script>`, `<style>`, `<svg>`, chỉ trích xuất Menu dịch vụ, các thẻ H1–H3 và tối đa 6.000 ký tự nội dung chính (gói gọn trong 4.000–6.000 tokens). Đồng thời dùng `responseSchema` ép đầu ra trả về đúng 03 điểm mạnh & 03 điểm cần cải thiện theo ngôn ngữ tư vấn kinh doanh."*
-- *(📸 Chèn Ảnh minh chứng 2: Đoạn hội thoại tối ưu hàm `buildRichAiPayload` và cấu hình `responseSchema`)*
+- ![Mô tả ngắn gọn về bức ảnh](./images/minh-chung-th-2.1.png)
+- ![Mô tả ngắn gọn về bức ảnh](./images/minh-chung-th-2.2.png)
