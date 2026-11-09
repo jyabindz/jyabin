@@ -287,44 +287,35 @@ window.JyabinAI.ConfigSamples = (() => {
   const SAMPLES = {
     sme_bomhn: {
       id: 'sme_bomhn',
-      domainKey: 'bomcongnghiephn.com',
-      label: 'Mẫu SME Điển hình: Máy Bơm Công Nghiệp Hà Nội',
-      url: 'https://bomcongnghiephn.com/',
+      domainKey: 'maybomviet.com',
+      label: 'Mẫu SME Điển hình: Thương Hiệu Máy Bơm Việt',
+      url: 'https://maybomviet.com/',
       html: `<!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang chủ - Máy Bơm Công Nghiệp Hà Nội</title>
-  <meta name="description" content="Chuyên nhập khẩu và phân phối máy bơm công nghiệp Pentax, Ebara, máy bơm chữa cháy PCCC, bơm chìm nước thải chính hãng CO-CQ đầy đủ tại Hà Nội.">
-  <link rel="canonical" href="https://bomcongnghiephn.com/">
+  <title>Trang chủ - Máy Bơm Việt</title>
+  <link rel="canonical" href="https://maybomviet.com/">
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2933/2933921.png">
-  <meta property="og:title" content="Máy Bơm Công Nghiệp Hà Nội - Phân Phối Pentax, Ebara Chính Hãng">
-  <meta property="og:description" content="Kho máy bơm công nghiệp công suất lớn, bơm PCCC, bơm cấp nước tòa nhà giá tốt nhất miền Bắc. Bảo hành chính hãng 12 tháng.">
 </head>
 <body>
   <header>
     <nav>
-      <a href="/bom-cong-nghiep-pentax">Máy bơm Pentax Ý</a>
-      <a href="/bom-chua-chay-pccc">Máy bơm chữa cháy PCCC</a>
-      <a href="/bom-chim-nuoc-thai">Bơm chìm nước thải Tsurumi</a>
-      <a href="/tu-dien-dieu-khien">Tủ điện điều khiển máy bơm</a>
-      <a href="tel:0989123456">Hotline kỹ thuật: 0989 123 456</a>
-      <a href="mailto:kinhdoanh@bomcongnghiephn.com">Email báo giá</a>
+      <a href="/bom-cong-nghiep">Máy bơm công nghiệp</a>
+      <a href="/bom-dan-dung">Máy bơm nước dân dụng</a>
+      <a href="/bom-chua-chay">Bơm chữa cháy PCCC</a>
+      <a href="tel:0903456789">Hotline tư vấn: 0903 456 789</a>
     </nav>
   </header>
   <main>
-    <h2>Nhà Phân Phối Máy Bơm Công Nghiệp & Hệ Thống Bơm PCCC Hàng Đầu</h2>
-    <p>Cung cấp giải pháp bơm cấp thoát nước cho nhà máy, khu công nghiệp, chung cư cao tầng với đầy đủ chứng chỉ xuất xứ CO, CQ và kiểm định PCCC.</p>
-    <h2>1. Dòng Máy Bơm Ly Tâm Trục Ngang Pentax & Ebara</h2>
-    <p>Lưu lượng lớn, cột áp cao, hoạt động bền bỉ 24/7 trong môi trường công nghiệp khắc nghiệt.</p>
-    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800" alt="Máy bơm công nghiệp Pentax nhập khẩu nguyên chiếc từ Ý">
-    <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=800" alt="Hệ thống máy bơm chữa cháy Diesel và trục rời">
-    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800" alt="Kho hàng máy bơm chìm nước thải công nghiệp">
+    <h1>Trung Tâm Phân Phối Máy Bơm Nước Dân Dụng & Công Nghiệp Máy Bơm Việt</h1>
+    <p>Chuyên cung cấp máy bơm nước đẩy cao, bơm tăng áp tự động, máy bơm chìm nước thải chính hãng Pentax, Ebara, Panasonic tại Hà Nội và TP.HCM.</p>
+    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800" alt="Máy bơm nước công nghiệp chính hãng">
+    <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=800" alt="Lắp đặt hệ thống máy bơm tăng áp">
+    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800">
     <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=800">
-    <h2>2. Liên Hệ Kỹ Thuật Khảo Sát & Lắp Đặt</h2>
-    <p>Địa chỉ kho hàng: Khu công nghiệp Ngọc Hồi, Thanh Trì, Hà Nội. Hỗ trợ giao hàng và lắp đặt tận chân công trình.</p>
-    <button type="button">Xem chi tiết каталог sản phẩm</button>
+    <button type="button">Xem danh mục sản phẩm</button>
   </main>
 </body>
 </html>`
@@ -382,32 +373,32 @@ window.JyabinAI.ConfigSamples = (() => {
 
     sme_maybomviet: {
       id: 'sme_maybomviet',
-      domainKey: 'maybomviet.com',
-      label: 'Mẫu SME Thiếu chăm sóc: Máy Bơm Việt',
-      url: 'https://maybomviet.com/',
+      domainKey: 'denpinnhapkhau.vn',
+      label: 'Mẫu SME Thiếu chăm sóc: Đèn Pin Nhập Khẩu',
+      url: 'https://denpinnhapkhau.vn/',
       html: `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Trang chủ - Máy Bơm Việt</title>
-  <meta name="description" content="Chuyên bán các loại máy bơm nước giá rẻ.">
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2933/2933921.png">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>Trang chủ - Đèn Pin Nhập Khẩu</title>
+  <meta name="description" content="Chuyên bán đèn pin siêu sáng.">
 </head>
 <body>
   <header>
-    <a href="/bom-dan-dung">Bơm dân dụng</a>
-    <a href="/bom-tang-ap">Bơm tăng áp</a>
-    <a href="tel:0903456789">Gọi mua hàng: 0903 456 789</a>
+    <a href="/den-pin-police">Đèn pin siêu sáng</a>
+    <a href="/den-pin-doi-dau">Đèn đội đầu</a>
+    <a href="tel:0912345678">Liên hệ mua hàng: 0912 345 678</a>
   </header>
   <main>
-    <h2>Cửa Hàng Máy Bơm Nước Dân Dụng & Công Nghiệp Máy Bơm Việt</h2>
-    <h2>Chuyên sửa chữa và lắp đặt máy bơm nước tại nhà</h2>
-    <p>Cung cấp máy bơm nước đẩy cao, bơm tăng áp tự động Panasonic, Hanil, Kangaroo cho hộ gia đình và nhà trọ.</p>
-    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600" alt="Máy bơm nước tăng áp gia đình">
-    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600" alt="Lắp đặt máy bơm đẩy cao">
-    <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=600">
-    <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=600">
-    <button type="button">Xem báo giá</button>
+    <h2>Cửa Hàng Đèn Pin Siêu Sáng & Đèn Pha Nhập Khẩu</h2>
+    <h2>Chuyên các dòng đèn pin chiếu xa, đèn đội đầu đi phượt, tuần tra</h2>
+    <p>Phân phối đèn pin hợp kim nhôm chống nước, pin sạc Lithium dung lượng cao cho bảo vệ, công trình và dã ngoại.</p>
+    <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600" alt="Đèn pin siêu sáng chiếu xa">
+    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600">
+    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600">
+    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600">
+    <button type="button">Xem thêm</button>
   </main>
 </body>
 </html>`
