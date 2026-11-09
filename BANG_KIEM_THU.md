@@ -1,9 +1,3 @@
-
-## KHỐI 3: Toàn bộ nội dung file `BANG_KIEM_THU.md` (08 Ca Kiểm Thử Thực Tế Đạt Chuẩn Bảng A)
-
-*(Lưu nội dung dưới đây vào file `BANG_KIEM_THU.md` trong thư mục gốc của dự án)*
-
-```markdown
 # 🧪 BẢNG KIỂM THỬ ĐỘ ỔN ĐỊNH & XỬ LÝ LỖI — JYABINAI (BẢNG A)
 
 Tài liệu này ghi nhận **08 Ca kiểm thử (Test Cases)** thực tế trên ứng dụng **JyabinAI (Vibe-coding - Đề 5)**, bao phủ đầy đủ 03 nhóm bắt buộc của Bảng A: **Ca bình thường (Happy Path)**, **Ca đầu vào không hợp lệ (Invalid Input)** và **Ca biên / Sự cố (Edge Cases & Fault Tolerance)**.
